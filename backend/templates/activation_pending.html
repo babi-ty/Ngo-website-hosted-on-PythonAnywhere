@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation Pending</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+        .container { max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 30px; border-radius: 8px; }
+        a { color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Account Created Successfully!</h2>
+        <p>We have sent an activation link to your email address.</p>
+        <p><strong>Please check your email and click the link to activate your account.</strong></p>
+        <p>If you don't see the email, please check your spam folder.</p>
+        <br>
+        <p><a href="{% url 'login' %}">Back to Login Page</a></p>
+    </div>
+</body>
+</html>

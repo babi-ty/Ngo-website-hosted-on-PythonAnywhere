@@ -1,0 +1,151 @@
+/* --- Color Variables --- */
+            :root {
+                --bg-color: #CBE3EB;
+                --form-bg: #ffffff;
+                --border-color: #dddddd;
+                --text-color: #353538;
+                --accent-blue: #3a5e77;
+                --light-blue: #4eb8dd;
+            }
+
+            /* --- Global Styles --- */
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                /* Center the form */
+                display: grid;
+                place-items: center;
+                min-height: 100vh;
+                padding: 2rem; /* Add padding for small screens */
+            }
+
+            /* --- Registration Container --- */
+            /* This wrapper is 'relative' so we can 'absolutely' position the animals around it. */
+            .registration-container {
+                position: relative;
+                max-width: 450px;
+                width: 100%;
+            }
+
+            /* --- The Form --- */
+            .registration-form {
+                background-color: var(--form-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 16px;
+                padding: 2rem;
+                text-align: center;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); 
+                position: relative;
+                z-index: 2;
+            }
+
+            .registration-form h2 {
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin-bottom: 0.8rem;
+            }
+            
+            /* --- Django Messages Styling --- */
+            .django-messages {
+                margin-bottom: 1rem;
+                font-size: 0.9rem;
+            }
+            .django-messages .error {
+                color: firebrick;
+            }
+            .django-messages .success {
+                color: dodgerblue; /* Or a green color */
+            }
+
+
+            /* --- Form Inputs --- */
+            .form-group {
+                margin-bottom: 0.8rem;
+            }
+
+            .form-input {
+                width: 100%;
+                padding: 0.75rem;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                font-size: 0.95rem;
+            }
+
+            .form-input::placeholder {
+                color: #aaa;
+            }
+
+            /* --- Form Button --- */
+            .register-btn {
+                width: 100%;
+                padding: 0.85rem;
+                border: none;
+                border-radius: 8px;
+                background-color: var(--light-blue);
+                color: white;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin-top: 1rem;
+            }
+
+            .register-btn:hover {
+                background-color: var(--accent-blue);
+            }
+
+            /* --- Login Link --- */
+            .login-link {
+                margin-top: 1.5rem;
+                font-size: 0.9rem;
+                color: #555;
+            }
+
+            .login-link a {
+                color: var(--accent-blue);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .login-link a:hover {
+                text-decoration: underline;
+            }
+
+            /* --- Animal Placeholders --- */
+            .animal {
+                position: absolute;
+                z-index: 3;
+                width: 130px; 
+                height: auto;
+            }
+
+            .animal-tiger {
+                top: -125px;
+                left: -100px;
+            }
+
+            .animal-rabbit {
+                top: -195px;
+                right: 195px;
+                width: 80px;
+                transform: scale(0.7)
+            }
+
+            .animal-cat {
+                bottom: -70px;
+                left: -78.5px;
+                width: 80px;
+                transform: scale(0.9)
+            }
+
+            .animal-panda {
+                bottom: -58px;
+                right: -18px;
+            }

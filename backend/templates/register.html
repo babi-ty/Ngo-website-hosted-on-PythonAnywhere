@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+
+    <div class="registration-container">
+
+        <div class="animal animal-tiger">
+            <img src="{% static 'images/top_left_tiger.svg' %}" alt="Tiger">
+        </div>
+        <div class="animal animal-rabbit">
+            <img src="{% static 'images/raboot.svg' %}" alt="rabbit">
+        </div>
+        <div class="animal animal-cat">
+            <img src="{% static 'images/bottom_left_cat.svg' %}" alt="Cat ">
+        </div>
+        <div class="animal animal-panda">
+            <img src="{% static 'images/bottom_right_panda.svg' %}" alt="Panda">
+        </div>
+
+        <form class="registration-form" method="POST">
+            <h2>Register</h2>
+            
+            {% csrf_token %}
+
+            {% if messages %}
+            <div class="django-messages">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <h4 class="error">{{message}}</h4>
+                    {% else %}
+                        <h4 class="success">{{message}}</h4>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="First Name" required name="first_name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Last Name" required name="last_name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-input" placeholder="Username" required name="username">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-input" placeholder="Email" required name="email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Password" required name="password">
+            </div>
+
+            <button type="submit" class="register-btn">Register</button>
+
+            <p class="login-link">
+                   
+                <a href="{% url 'login' %}">Login</a>
+            </p>
+        </form>
+
+    </div> </body>
+</html>
