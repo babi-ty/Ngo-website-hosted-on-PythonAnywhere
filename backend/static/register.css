@@ -19,15 +19,15 @@
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 background-color: var(--bg-color);
                 color: var(--text-color);
-                /* Center the form */
+                
                 display: grid;
                 place-items: center;
                 min-height: 100vh;
-                padding: 2rem; /* Add padding for small screens */
+                padding: 1.5rem; 
+                overflow: hidden;
             }
 
-            /* --- Registration Container --- */
-            /* This wrapper is 'relative' so we can 'absolutely' position the animals around it. */
+           
             .registration-container {
                 position: relative;
                 max-width: 450px;
@@ -61,7 +61,7 @@
                 color: firebrick;
             }
             .django-messages .success {
-                color: dodgerblue; /* Or a green color */
+                color: dodgerblue;
             }
 
 
@@ -124,6 +124,7 @@
                 z-index: 3;
                 width: 130px; 
                 height: auto;
+                pointer-events: none;
             }
 
             .animal-tiger {

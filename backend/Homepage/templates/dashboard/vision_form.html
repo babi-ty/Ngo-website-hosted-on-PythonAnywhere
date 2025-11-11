@@ -1,0 +1,200 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Manage Vision & Mission{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-container h1 {
+        color: #007DCC;
+        margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+    }
+
+    .section-divider {
+        border: none;
+        border-top: 2px solid #e9ecef;
+        margin: 40px 0;
+    }
+
+    .section-title {
+        color: #007DCC;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 150px;
+        font-family: inherit;
+    }
+
+    .btn-submit {
+        background: #007DCC;
+        color: white;
+        padding: 14px 40px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background: #005A99;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,125,204,0.3);
+    }
+
+    .btn-cancel {
+        background: #6c757d;
+        color: white;
+        padding: 14px 40px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 15px;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .btn-cancel:hover {
+        background: #5a6268;
+    }
+
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.9rem;
+    }
+
+    .info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #007DCC;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .info-box p {
+        margin: 0;
+        color: #004085;
+        font-size: 0.95rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <a href="{% url 'dashboard_home' %}" class="btn-back">← Back to Dashboard</a>
+    
+    <div class="form-container">
+        <h1>Manage Vision & Mission</h1>
+        <p class="form-subtitle">Define your organization's vision and mission statement</p>
+
+        <div class="info-box">
+            <p>💡 This content will be displayed on your homepage. Make it clear, inspiring, and concise.</p>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Vision Section -->
+            <div class="section-title">Vision</div>
+            
+            <div class="form-group">
+                <label for="{{ form.vision_title.id_for_label }}">Vision Title *</label>
+                {{ form.vision_title }}
+                {{ form.vision_title.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.vision_description.id_for_label }}">Vision Description *</label>
+                {{ form.vision_description }}
+                {{ form.vision_description.errors }}
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Mission Section -->
+            <div class="section-title">Mission</div>
+            
+            <div class="form-group">
+                <label for="{{ form.mission_title.id_for_label }}">Mission Title *</label>
+                {{ form.mission_title }}
+                {{ form.mission_title.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.mission_description.id_for_label }}">Mission Description *</label>
+                {{ form.mission_description }}
+                {{ form.mission_description.errors }}
+            </div>
+
+            <div style="margin-top: 40px;">
+                <button type="submit" class="btn-submit">Save Changes</button>
+                <a href="{% url 'dashboard_home' %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

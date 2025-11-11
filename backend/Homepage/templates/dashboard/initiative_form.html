@@ -1,0 +1,183 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}{{ action }} Initiative{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-container h1 {
+        color: #007DCC;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .form-check label {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .current-image {
+        margin-top: 10px;
+        max-width: 300px;
+        border-radius: 8px;
+    }
+
+    .btn-submit {
+        background: #007DCC;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background: #005A99;
+    }
+
+    .btn-cancel {
+        background: #6c757d;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 15px;
+        display: inline-block;
+    }
+
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.9rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <a href="{% url 'dashboard_manage_initiative' %}" class="btn-back">← Back to Initiatives</a>
+    
+    <div class="form-container">
+        <h1>{{ action }} Initiative</h1>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title *</label>
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description *</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Image *</label>
+                {{ form.image }}
+                {{ form.image.errors }}
+                {% if form.instance.image %}
+                <p style="margin-top: 10px; color: #666;">Current image:</p>
+                <img src="{{ form.instance.image.url }}" alt="Current" class="current-image">
+                {% endif %}
+                <small style="color: #666; display: block; margin-top: 5px;">Recommended size: 600x400px</small>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.order.id_for_label }}">Display Order *</label>
+                {{ form.order }}
+                {{ form.order.errors }}
+                <small style="color: #666; display: block; margin-top: 5px;">Lower numbers appear first</small>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    {{ form.status }}
+                    <label for="{{ form.status.id_for_label }}">Active</label>
+                </div>
+                {{ form.status.errors }}
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button type="submit" class="btn-submit">{{ action }} Initiative</button>
+                <a href="{% url 'dashboard_manage_initiative' %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

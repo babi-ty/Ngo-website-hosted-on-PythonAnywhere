@@ -1,0 +1,492 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ways To Help{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .ways-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        padding: 80px 20px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .ways-hero h1 {
+        color: white;
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    /* Ways Grid */
+    .ways-grid {
+        max-width: 1200px;
+        margin: 0 auto 60px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    .way-card {
+        background: white;
+        border: 2px solid #E3F2FD;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .way-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 125, 204, 0.2);
+        border-color: #007DCC;
+    }
+
+    .way-card-icon {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+    }
+
+    .way-card-icon svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .way-card h3 {
+        color: #007DCC;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+    }
+
+    .way-card p {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    /* Detail Sections */
+    .detail-section {
+        background: #f5f5f5;
+        padding: 60px 20px;
+        margin-bottom: 2px;
+    }
+
+    .detail-section:nth-child(odd) {
+        background: #ffffff;
+    }
+
+    .detail-header {
+        text-align: center;
+        margin-bottom: 40px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .detail-header h2 {
+        color: #007DCC;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 40px 0;
+    }
+
+    .detail-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    /* Stats Card */
+    .detail-stats {
+        background: #BBDEFB;
+        padding: 40px 30px;
+        border-radius: 0 20px 20px 0;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .detail-stats h4 {
+        font-size: 1.4rem;
+        margin-bottom: 30px;
+        color: #333;
+        line-height: 1.3;
+        font-weight: 700;
+    }
+
+    .detail-stats .stat-number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #000;
+        display: block;
+        margin: 15px 0;
+    }
+
+    .detail-stats .stat-label {
+        font-size: 1.2rem;
+        color: #333;
+        display: block;
+        line-height: 1.4;
+    }
+
+    /* Image Card */
+    .detail-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #E3F2FD;
+    }
+
+    .detail-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Description Card */
+    .detail-description {
+        background: #007DCC;
+        color: white;
+        padding: 40px;
+        border-radius: 20px 0 0 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .detail-description p {
+        line-height: 1.8;
+        margin-bottom: 15px;
+        font-size: 1rem;
+        color: white;
+    }
+
+    .detail-description p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .detail-description strong {
+        color: white;
+        font-weight: 600;
+    }
+
+    .detail-description .cta-button {
+        background: white;
+        color: #007DCC;
+        padding: 14px 35px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 25px;
+        font-weight: 700;
+        text-align: center;
+        transition: all 0.3s ease;
+        align-self: flex-start;
+    }
+
+    .detail-description .cta-button:hover {
+        background: #f0f0f0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Volunteer Section */
+    .volunteer-images {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .volunteer-images > div {
+        height: 250px;
+        border-radius: 15px;
+    }
+
+    .volunteer-text {
+        grid-column: 1 / -1;
+        background: white;
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .volunteer-text h3 {
+        color: #007DCC;
+        font-size: 2rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+    }
+
+    .volunteer-text p {
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 1.05rem;
+    }
+
+    .volunteer-text ul {
+        margin: 25px 0;
+        padding-left: 25px;
+        columns: 2;
+        column-gap: 40px;
+    }
+
+    .volunteer-text li {
+        margin-bottom: 12px;
+        line-height: 1.6;
+        color: #333;
+        break-inside: avoid;
+    }
+
+    .volunteer-text .cta-button {
+        background: #007DCC;
+        color: white;
+        padding: 14px 35px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 25px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+
+    .volunteer-text .cta-button:hover {
+        background: #005A99;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,125,204,0.3);
+    }
+
+    /* Pledge Section */
+    .pledge-text {
+        grid-column: 1 / -1;
+        background: white;
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .pledge-text h3 {
+        color: #007DCC;
+        font-size: 2rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+    }
+
+    .pledge-text p {
+        line-height: 1.8;
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 1.05rem;
+    }
+
+    .pledge-text ul {
+        margin: 25px 0;
+        padding-left: 25px;
+    }
+
+    .pledge-text li {
+        margin-bottom: 15px;
+        line-height: 1.7;
+        color: #333;
+        font-size: 1.05rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .ways-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .detail-content {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-stats,
+        .detail-description {
+            border-radius: 20px;
+        }
+
+        .volunteer-text ul {
+            columns: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ways-hero h1 {
+            font-size: 2rem;
+        }
+
+        .ways-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .way-card {
+            padding: 25px;
+        }
+
+        .detail-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .detail-section {
+            padding: 40px 15px;
+        }
+
+        .detail-stats .stat-number {
+            font-size: 2.5rem;
+        }
+
+        .detail-description,
+        .volunteer-text,
+        .pledge-text {
+            padding: 30px;
+        }
+
+
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="ways-hero">
+    <h1>WAYS TO HELP</h1>
+</section>
+
+<!-- Ways Grid -->
+<section class="ways-grid">
+    <a href="/donate" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <path d="M50 20c-16.57 0-30 13.43-30 30 0 22.5 30 50 30 50s30-27.5 30-50c0-16.57-13.43-30-30-30zm0 40c-5.52 0-10-4.48-10-10s4.48-10 10-10 10 4.48 10 10-4.48 10-10 10z"/>
+            </svg>
+        </div>
+        <h3>DONATE</h3>
+        <p>Support our mission with financial contributions</p>
+    </a>
+
+    <a href="/surgery" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <circle cx="50" cy="35" r="15"/>
+                <path d="M25 55c0-5.52 4.48-10 10-10h30c5.52 0 10 4.48 10 10v25H25V55z"/>
+                <path d="M45 60h10v15H45z"/>
+            </svg>
+        </div>
+        <h3>GET ABC SURGERY DONE</h3>
+        <p>For your pet or community animal</p>
+    </a>
+
+    <a href="/adopt" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <path d="M50 25l-30 25v30h20V60h20v20h20V50L50 25z"/>
+            </svg>
+        </div>
+        <h3>ADOPT / FOSTER</h3>
+        <p>Give permanent/bridge homes to pups/kittens</p>
+    </a>
+
+    <a href="#volunteer" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <circle cx="50" cy="30" r="12"/>
+                <path d="M35 50c-8.28 0-15 6.72-15 15v15h60V65c0-8.28-6.72-15-15-15H35z"/>
+            </svg>
+        </div>
+        <h3>VOLUNTEER</h3>
+        <p>Rescues, campaigns, shelter work, adoptions</p>
+    </a>
+
+    <a href="#clinic" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <path d="M50 20L20 40v40h60V40L50 20z"/>
+                <path d="M45 50h10v20H45zM35 60h30v5H35z"/>
+            </svg>
+        </div>
+        <h3>CONSULT AT OUR OP CLINIC</h3>
+        <p>9 am to 4.30 pm</p>
+    </a>
+
+    <a href="#pledge" class="way-card">
+        <div class="way-card-icon">
+            <svg viewBox="0 0 100 100" fill="#007DCC">
+                <path d="M50 20l10 20h20l-15 15 5 20-20-10-20 10 5-20-15-15h20z"/>
+            </svg>
+        </div>
+        <h3>TAKE THE PLEDGE</h3>
+        <p>Commit to protecting animals</p>
+    </a>
+</section>
+
+
+<!-- Volunteer Section -->
+<section id="volunteer" class="detail-section">
+    <div class="detail-header">
+        <h2>VOLUNTEER</h2>
+    </div>
+    <div class="detail-content">
+        <div class="volunteer-images">
+
+        </div>
+        <div class="volunteer-text">
+            <p>Contrary to popular belief, volunteers do not sign up because they have plenty of time. They show up because they have 'plenty' of heart. Do you have the heart to make time?</p>
+            <p>When we started almost six decades ago, Blue Cross Of India was entirely volunteer run. Over the years a body of over 2000 registered volunteers have been the spine of BCI, and continue to help support us in innumerable ways.</p>
+            <p>If you care, if you have the heart, come join this ever growing group - the 2000 plus beating hearts inside and the millions outside, need us - they need you.</p>
+            <p><strong>Volunteering & Internship Opportunities:</strong></p>
+            <ul>
+                <li>Adoption Drives (onsite)</li>
+                <li>Humane Education Workshops (onsite / remote)</li>
+                <li>Creative Writing (remote)</li>
+                <li>Graphics & Web Design (remote)</li>
+                <li>Shelter Sanitation (on site / must vaccinate)</li>
+                <li>Abandoned Animal Management (on site / must vaccinate)</li>
+                <li>Call Centre & Helpdesk Management (on site)</li>
+                <li>Tactical Rescues (on site / must vaccinate)</li>
+                <li>Fundraising (remote)</li>
+            </ul>
+            <a href="{% url 'volunteer' %}" class="cta-button">SIGN UP TO BE A BCI VOLUNTEER</a>
+        </div>
+    </div>
+</section>
+
+<!-- Pledge Section -->
+<section id="pledge" class="detail-section">
+    <div class="detail-header">
+        <h2>TAKE THE PLEDGE TO PROTECT ANIMALS</h2>
+    </div>
+    <div class="detail-content">
+        <div class="pledge-text">
+            <h3>Take the BCI Pledge</h3>
+            <p>The first step to shape our world into one that values and respects all animals is to recognise the intrinsic value of non human animals. A value that goes far beyond the one that considers them a property or even a pet. That all living things are intrinsically - for and by themselves valuable to our fragile ecosystem.</p>
+            <p><strong>THE BCI PLEDGE:</strong></p>
+            <ul>
+                <li>I will speak up for animals in distress and report abuse/cruelty or neglect to the police.</li>
+                <li>I will lobby to improve the laws that recognise animal rights.</li>
+                <li>I will support law enforcement across the country in their efforts to enforce animal cruelty laws.</li>
+                <li>I will talk to family and friends about animal welfare and encourage them to learn more.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

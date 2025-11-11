@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Rescue Services - Blue Cross of India</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+
+        /* Hero Section */
+        .rescue-hero {
+            background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rescue-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,90 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x bottom;
+            background-size: 1200px 120px;
+            opacity: 0.3;
+        }
+
+        .rescue-hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .rescue-hero p {
+            color: white;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0.95;
+        }
+
+        .emergency-banner {
+            background: #C44536;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .emergency-banner a {
+            color: white;
+            text-decoration: underline;
+            margin: 0 10px;
+        }
+
+        /* Stats Bar */
+        .rescue-stats {
+            background: #f8f9fa;
+            padding: 50px 20px;
+            border-bottom: 3px solid #E3F2FD;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,125,204,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #007DCC;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Rescue Types Grid */
+        .rescue-types {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #007DCC;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .type-card {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .type-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 125, 204, 0.25);
+            border-color: #007DCC;
+        }
+
+        .type-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .type-card h3 {
+            color: #007DCC;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .type-card p {
+            color: #333;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Process Section */
+        .rescue-process {
+            background: #f5f5f5;
+            padding: 80px 20px;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #007DCC;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step-card h4 {
+            color: #007DCC;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .step-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Request Form Section */
+        .request-section {
+            background: white;
+            padding: 80px 20px;
+        }
+
+        .request-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 8px 25px rgba(0,125,204,0.15);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007DCC;
+            box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            background: #007DCC;
+            color: white;
+            padding: 16px 50px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #005A99;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,125,204,0.3);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: #007DCC;
+            color: white;
+            padding: 60px 20px;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 30px;
+        }
+
+        .contact-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .contact-item p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Guidelines Section */
+        .guidelines {
+            background: #f8f9fa;
+            padding: 80px 20px;
+        }
+
+        .guidelines-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .guidelines-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .guidelines-box h3 {
+            color: #007DCC;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .guidelines-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .guidelines-list li {
+            padding: 15px 0 15px 40px;
+            border-bottom: 1px solid #E3F2FD;
+            position: relative;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .guidelines-list li:last-child {
+            border-bottom: none;
+        }
+
+        .guidelines-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #007DCC;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .types-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .rescue-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .rescue-hero p {
+                font-size: 1rem;
+            }
+
+            .stats-container,
+            .types-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 30px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        🚨 EMERGENCY RESCUE HOTLINE: <a href="tel:+919962998886">+91 99629 98886</a> | 24/7 AVAILABLE
+    </div>
+
+    <!-- Hero Section -->
+    <section class="rescue-hero">
+        <h1>ANIMAL RESCUE SERVICES</h1>
+        <p>Every life matters. Our dedicated rescue team responds to distress calls across Chennai and surrounding areas, providing immediate help to animals in need.</p>
+    </section>
+
+    <!-- Statistics -->
+    <section class="rescue-stats">
+        <div class="stats-container">
+            <div class="stat-box">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Emergency Response</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">15000+</span>
+                <span class="stat-label">Animals Rescued Annually</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">< 30 MIN</span>
+                <span class="stat-label">Average Response Time</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-number">95%</span>
+                <span class="stat-label">Successful Recovery Rate</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rescue Types -->
+    <section class="rescue-types">
+        <h2 class="section-title">TYPES OF RESCUE OPERATIONS</h2>
+        <div class="types-grid">
+            <div class="type-card">
+                <div class="type-icon">🚑</div>
+                <h3>EMERGENCY RESCUES</h3>
+                <p>Immediate response to road accidents, injuries, trapped animals, and life-threatening situations requiring urgent medical intervention.</p>
+            </div>
+
+            <div class="type-card">
+                <div class="type-icon">🏔️</div>
+                <h3>TACTICAL RESCUES</h3>
+                <p>Specialized equipment and trained personnel for animals trapped in wells, heights, confined spaces, or difficult-to-access locations.</p>
+            </div>
+
+            <div class="type-card">
+                <div class="type-icon">🌊</div>
+                <h3>DISASTER RELIEF</h3>
+                <p>Coordinated rescue operations during natural disasters including floods, cyclones, earthquakes, and other emergency situations.</p>
+            </div>
+
+            <div class="type-card">
+                <div class="type-icon">🏘️</div>
+                <h3>COMMUNITY RESCUES</h3>
+                <p>Assistance for abandoned pets, stray animals in distress, injured wildlife, and animals requiring relocation or shelter placement.</p>
+            </div>
+
+            <div class="type-card">
+                <div class="type-icon">👶</div>
+                <h3>ORPHANED ANIMALS</h3>
+                <p>Specialized care for orphaned puppies, kittens, and other young animals requiring immediate shelter, nutrition, and medical attention.</p>
+            </div>
+
+            <div class="type-card">
+                <div class="type-icon">🐍</div>
+                <h3>WILDLIFE RESCUE</h3>
+                <p>Safe capture and relocation of snakes, birds, and other wildlife found in urban areas, ensuring safety for both animals and humans.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rescue Process -->
+    <section class="rescue-process">
+        <div class="process-container">
+            <h2 class="section-title">HOW OUR RESCUE PROCESS WORKS</h2>
+            <div class="process-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>REPORT</h4>
+                    <p>Call our hotline or submit an online rescue request with location details and animal condition.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>DISPATCH</h4>
+                    <p>Our team assesses urgency and dispatches the nearest rescue unit with appropriate equipment.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>RESCUE</h4>
+                    <p>Trained rescuers safely extract and stabilize the animal, providing immediate first aid if needed.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>TREATMENT</h4>
+                    <p>Animal receives medical care at our hospital, followed by rehabilitation and eventual release or adoption.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Form -->
+    <section class="request-section">
+        <div class="request-container">
+            <h2 class="section-title">REQUEST A RESCUE</h2>
+            <div class="form-card">
+                <form id="rescueForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number *</label>
+                            <input type="tel" required placeholder="+91 XXXXX XXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="your.email@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Animal Type *</label>
+                        <select required>
+                            <option value="">Select animal type</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="cattle">Cattle</option>
+                            <option value="bird">Bird</option>
+                            <option value="snake">Snake</option>
+                            <option value="other">Other Wildlife</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location Details *</label>
+                        <input type="text" required placeholder="Enter precise location with landmarks">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Situation Description *</label>
+                        <textarea required placeholder="Describe the animal's condition, injuries, and exact situation in detail..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Urgency Level *</label>
+                        <select required>
+                            <option value="">Select urgency level</option>
+                            <option value="critical">Critical - Life-threatening</option>
+                            <option value="urgent">Urgent - Injured/In pain</option>
+                            <option value="moderate">Moderate - Needs assistance</option>
+                            <option value="routine">Routine - Non-emergency</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">SUBMIT RESCUE REQUEST</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-info">
+        <div class="contact-container">
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <h3>RESCUE HOTLINE</h3>
+                <p><a href="tel:+919962998886">+91 99629 98886</a></p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Available 24/7 for emergencies</p>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">💬</div>
+                <h3>WHATSAPP</h3>
+                <p><a href="https://wa.me/919962998886">+91 99629 98886</a></p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Send location & photos</p>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon">📧</div>
+                <h3>EMAIL</h3>
+                <p><a href="mailto:rescue@bluecrossofindia.org">rescue@bluecrossofindia.org</a></p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">For non-urgent inquiries</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guidelines -->
+    <section class="guidelines">
+        <div class="guidelines-container">
+            <div class="guidelines-box">
+                <h3>WHAT TO DO WHILE WAITING FOR RESCUE</h3>
+                <ul class="guidelines-list">
+                    <li>Stay with the animal if safe to do so, keeping a safe distance if the animal appears aggressive or frightened.</li>
+                    <li>Keep the animal calm and avoid loud noises or sudden movements that might cause additional stress.</li>
+                    <li>If safe, provide water in a shallow container, but do NOT force-feed the animal.</li>
+                    <li>Take clear photos of the animal and exact location to share with our rescue team.</li>
+                    <li>Mark the precise GPS location and share nearby landmarks for easy navigation.</li>
+                    <li>If the animal is on the road, try to alert passing traffic to prevent further accidents.</li>
+                    <li>Do NOT attempt to move severely injured animals unless they're in immediate danger.</li>
+                    <li>For snake rescues, maintain safe distance and note the snake's appearance and location.</li>
+                    <li>Keep your phone accessible to receive calls from our rescue coordinator.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('rescueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your rescue request! Our team will contact you shortly. For immediate emergencies, please call our hotline: +91 99629 98886');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

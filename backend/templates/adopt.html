@@ -1,0 +1,786 @@
+{% load static%}
+<style>
+    body {
+        background-color: #eff3f4;
+        margin: 0;
+    }
+
+    /* Hero Section */
+    .adopt-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: #ffffff;
+        padding: 100px 40px 60px 40px;
+        text-align: center;
+        margin-bottom: 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .adopt-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,90 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x bottom;
+        background-size: 1200px 120px;
+        opacity: 0.3;
+    }
+
+    .adopt-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .adopt-hero p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        font-weight: 300;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Page Container */
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Introduction Section */
+    .intro-section {
+        background: #ffffff;
+        margin: 0 20px 60px 20px;
+        padding: 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+        overflow: hidden;
+    }
+
+    .intro-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+    }
+
+    .intro-text {
+        background: #007DCC;
+        color: white;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .intro-text h2 {
+        font-size: 2rem;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    .intro-text p {
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin-bottom: 15px;
+    }
+
+    .intro-image {
+        background-size: cover;
+        background-position: center;
+        min-height: 400px;
+    }
+
+    /* Stats Banner */
+    .stats-banner {
+        background: linear-gradient(135deg, #3a5e77 0%, #217093 100%);
+        padding: 50px 40px;
+        text-align: center;
+        margin: 0 20px 60px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .stats-banner h2 {
+        color: #ffffff;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .stats-banner p {
+        color: #ffffff;
+        font-size: 1.3rem;
+        opacity: 0.95;
+    }
+
+    /* Categories Section */
+    .categories-section {
+        margin: 0 20px 60px 20px;
+    }
+
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .category-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 40px 30px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 2px solid #dddddd;
+        transition: all 0.3s ease;
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.25);
+        border-color: #007DCC;
+    }
+
+    .category-card h3 {
+        color: #007DCC;
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .category-card p {
+        color: #353538;
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+    /* How to Build a Dog Section */
+    .build-section {
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('{% static "pexelsphoto406014.jpeg" %}') center/cover;
+        padding: 100px 40px;
+        margin: 0 20px 60px 20px;
+        border-radius: 12px;
+        text-align: center;
+        color: white;
+    }
+
+    .build-section h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 40px;
+        font-family: 'Playfair Display', serif;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .build-steps {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .build-step {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .build-step strong {
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .build-step span {
+        font-weight: 400;
+        text-transform: lowercase;
+    }
+
+    /* Adoption Process */
+    .process-section {
+        background: #ffffff;
+        margin: 0 20px 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .process-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+
+    .process-step {
+        text-align: center;
+        padding: 30px 20px;
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .process-step:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.25);
+        border-color: #007DCC;
+    }
+
+    .process-number {
+        width: 60px;
+        height: 60px;
+        background: #007DCC;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 10px rgba(0,125,204,0.3);
+    }
+
+    .process-step h3 {
+        color: #007DCC;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .process-step p {
+        color: #333;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Success Story */
+    .story-section {
+        background: #f3fafd;
+        margin: 0 20px 60px 20px;
+        padding: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #dddddd;
+    }
+
+    .story-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+    }
+
+    .story-text {
+        padding: 50px;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .story-text h3 {
+        color: #007DCC;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .story-text p {
+        color: #353538;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin-bottom: 20px;
+    }
+
+    .story-button {
+        background: #007DCC;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .story-button:hover {
+        background: #005A99;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,125,204,0.3);
+    }
+
+    .story-image {
+        background-size: cover;
+        background-position: center;
+        min-height: 350px;
+    }
+
+    .story-stats {
+        background: #BBDEFB;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .story-stats h4 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    .story-stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #007DCC;
+        display: block;
+        margin: 15px 0;
+    }
+
+    .story-stat-label {
+        font-size: 1.2rem;
+        color: #333;
+        display: block;
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+        margin: 0 20px 60px 20px;
+    }
+
+    .gallery-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        aspect-ratio: 1;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.05);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        margin: 0 20px 60px 20px;
+        padding: 70px 40px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .cta-section h2 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .cta-section p {
+        color: #ffffff;
+        font-size: 1.2rem;
+        margin-bottom: 35px;
+        opacity: 0.95;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .cta-button {
+        background: #ffffff;
+        color: #007DCC;
+        padding: 18px 45px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-button:hover {
+        background: #4eb8dd;
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Inspirational Sections */
+    .inspire-section {
+        margin: 0 20px 60px 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .inspire-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 0;
+        min-height: 400px;
+    }
+
+    .inspire-image {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .inspire-text {
+        background: rgba(0, 125, 204, 0.95);
+        color: white;
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .inspire-text h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        line-height: 1.3;
+        font-family: 'Playfair Display', serif;
+    }
+
+    .inspire-text p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        opacity: 0.95;
+    }
+
+    .inspire-text p strong {
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .intro-grid,
+        .story-grid,
+        .inspire-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-steps {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .adopt-hero {
+            padding: 60px 30px 40px 30px;
+        }
+
+        .adopt-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .adopt-hero p {
+            font-size: 1.1rem;
+        }
+
+        .intro-text,
+        .story-text,
+        .story-stats,
+        .inspire-text {
+            padding: 35px 30px;
+        }
+
+        .process-section,
+        .cta-section {
+            padding: 40px 30px;
+        }
+
+        .process-steps {
+            grid-template-columns: 1fr;
+        }
+
+        .gallery-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .build-section {
+            padding: 60px 30px;
+        }
+
+        .build-section h2 {
+            font-size: 2rem;
+        }
+
+        .build-step {
+            font-size: 1.2rem;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cta-button {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .adopt-hero h1 {
+            font-size: 2rem;
+        }
+
+        .gallery-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+
+<!-- Hero Section -->
+<div class="adopt-hero">
+    <h1>ADOPTION & FOSTERING</h1>
+    <p>Give a rescue animal a second chance at life. Every adoption saves two lives - the one you adopt and the one that takes their place.</p>
+</div>
+
+<div class="page-container">
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="intro-grid">
+            <div class="intro-text">
+                <h2>The Reality We Face</h2>
+                <p><strong>There are millions of orphaned or handicapped street animals and abandoned pets in India.</strong></p>
+                
+                <p>The pioneering work of the Blue Cross Of India's ABC-AR program which became law over twenty odd years ago has done a great deal to mitigate the situation at a policy level. However its implementation which falls in the domain of the city corporations and municipalities still leaves a lot to be desired when it comes to its effectiveness.</p>
+                
+                <p>So the flood of orphaned pups and handicapped street animals in need of homes continues unabated, not to mention scores of so called 'pedigrees' being cruelly abandoned when they fall sick, grow old, lose favour of their 'masters' or simply go 'out-of-fashion'.</p>
+            </div>
+            <div class="intro-image" style="background-image: url('{% static "Adopt.png" %}');"></div>
+        </div>
+    </section>
+
+    <!-- Stats Banner -->
+    <section class="stats-banner">
+        <h2>108,068</h2>
+        <p>Adoptions Facilitated Since 1959</p>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="categories-grid">
+            <div class="category-card">
+                <h3>🐾 Orphaned Pups & Kittens</h3>
+                <p>Scores of motherless street pups and kittens are rescued by the Blue Cross Of India in Chennai every month. These innocent souls need loving homes where they can grow up safe and loved.</p>
+            </div>
+
+            <div class="category-card">
+                <h3>💔 Abandoned Pets</h3>
+                <p>Though abandoning a pet is illegal, many adult pet dogs and cats are anonymously abandoned. Many are often tied to posts overnight outside our Guindy shelter. These are rescued and managed in our Abandoned Animals section.</p>
+            </div>
+
+            <div class="category-card">
+                <h3>♿ Handicapped Street Animals</h3>
+                <p>Often animals that suffer road accidents and are handicapped cannot fend for themselves on the streets. They are rescued by the Blue Cross Of India and managed in our Geriatric and Special Needs section.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Build a Dog -->
+    <section class="build-section">
+        <h2>How To Build A Dog</h2>
+        <div class="build-steps">
+            <div class="build-step"><strong>STEP 1</strong> <span>adopt a pup</span></div>
+            <div class="build-step"><strong>STEP 2</strong> <span>vaccinate & potty train</span></div>
+            <div class="build-step"><strong>STEP 3</strong> <span>play</span></div>
+            <div class="build-step"><strong>STEP 4</strong> <span>repeat step 3</span></div>
+        </div>
+    </section>
+
+    <!-- Adoption Process -->
+    <section class="process-section">
+        <h2>The Adoption Process</h2>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <h3>Visit Us</h3>
+                <p>Come to our shelter at Guindy or attend our weekend adoption drives to meet the animals waiting for homes.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <h3>Choose Your Match</h3>
+                <p>Spend time with the animals. Our staff will help you find the perfect match based on your lifestyle and preferences.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <h3>Complete Paperwork</h3>
+                <p>Fill out the adoption form. We conduct a brief home assessment to ensure a safe environment for your new family member.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <h3>Welcome Home</h3>
+                <p>Take your new companion home! We provide post-adoption support and guidance for a smooth transition.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Story: Rambo -->
+    <section class="story-section">
+        <div class="story-grid">
+            <div class="story-text">
+                <h3>Meet Rambo</h3>
+                <p>Meet Akshay and his little brother from another mother – Rambo.</p>
+                
+                <p>In 2008, Akshay adopted Rambo-the-pup from the Blue Cross Of India.</p>
+                
+                <p>Rambo is now almost 15 and we had Akshay – an old volunteer visit us a few weeks back. We asked him to share his experience.</p>
+                
+                <a href="https://bluecrossofindia.org/blog/q12022/#rambo" target="_blank" class="story-button">READ RAMBO'S STORY</a>
+            </div>
+            
+            <div class="story-image" style="background-image: url('{% static "Rambo_Now.jpeg" %}');"></div>
+            
+            <div class="story-stats">
+                <h4><strong>RAMBO</strong></h4>
+                <span class="story-stat-label">adopted from<br>Blue Cross of India</span>
+                <span class="story-stat-number">2008</span>
+                <p style="margin-top: 20px; font-size: 1.1rem; line-height: 1.5;"><strong>Rambo at 14 holds the current record of the oldest living adoptee from BCI</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pups Section -->
+    <section class="inspire-section">
+        <div class="inspire-grid">
+            <div class="inspire-image" style="background-image: url('{% static 'Adopt_Pup.webp' %}');"></div>
+            <div class="inspire-text">
+                <h2>GET THEM YOUNG ...<br><br>PUPS MAKE GREAT COMPANIONS ....</h2>
+                <p>Adopt an orphaned street pup - rewrite his future</p>
+                <p><strong>Not all homes should have a dog, but all dogs must have a home</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Story: Cleo -->
+    <section class="story-section">
+        <div class="story-grid">
+            <div class="story-stats">
+                <h4><strong>CLEO</strong></h4>
+                <span class="story-stat-label">adopted from<br>Blue Cross of India</span>
+                <span class="story-stat-number">DEC '21</span>
+                <p style="margin-top: 20px; font-size: 1.1rem; line-height: 1.5;"><strong>Cleo was abandoned in an empty cardboard carton outside BCI</strong></p>
+            </div>
+            
+            <div class="story-image" style="background-image: url('{% static 'Cleo_1.png' %}');"></div>
+            
+            <div class="story-text">
+                <h3>Cleo's Story</h3>
+                <p>"Just for the innocent look in her eyes" trailed off Rabeeqa, "I would have given up everything I ever possessed, but all I had to do was a little bit of paperwork".</p>
+                
+                <p>Flashback to 29th December 2021 – a warm and beautiful morning for us in Chennai – not for Cleo who sat in the empty Pedigree cardboard box not far from the BCI gate – a large pile of fall leaves rustling against discarded water bottles her only company the previous night. A night that seemed like it would never end.</p>
+                
+                <a href="https://bluecrossofindia.org/blog/q12022/#adoptions" target="_blank" class="story-button">READ CLEO'S STORY</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kittens Section -->
+    <section class="inspire-section">
+        <div class="inspire-grid" style="grid-template-columns: 1fr 2fr;">
+            <div class="inspire-text">
+                <h2>A LIFE WITH KITTENS ...<br><br>DO YOU HAVE THE CATTITUDE ....</h2>
+                <p>Take home a kitten - an embodiment of purrfection...</p>
+                <p><strong>Because some angels come with whiskers</strong></p>
+            </div>
+            <div class="inspire-image" style="background-image: url('{% static 'cat_2.jpg' %}');"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <h2>Our Adoptable Angels</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="{% static 'C86ED1B4-29A0-4D6E-B078-612FE668E0F1.jpg' %}" alt="Adoptable Pet" onerror="this.src='https://placehold.co/400x400/BBDEFB/007DCC?text=Adopt+Me'">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static '4F814CAF-1CC8-4218-ABE6-6463215EFAC3.jpg' %}" alt="Adoptable Pet" onerror="this.src='https://placehold.co/400x400/BBDEFB/007DCC?text=Adopt+Me'">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static 'CCAB0B0D-4E9E-4E48-88A3-3B0182AC59FB.jpg' %}" alt="Adoptable Pet" onerror="this.src='https://placehold.co/400x400/BBDEFB/007DCC?text=Adopt+Me'">
+            </div>
+            <div class="gallery-item">
+                <img src="{% static '2081D17F-BED4-4F9A-832A-11C4FEDE7643.jpg' %}" alt="Adoptable Pet" onerror="this.src='https://placehold.co/400x400/BBDEFB/007DCC?text=Adopt+Me'">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Change a Life?</h2>
+        <p>These animals are in desperate need of loving homes. Visit our shelter, meet them, and take the first step towards giving them the family they deserve.</p>
+        <div class="cta-buttons">
+            <a href="mailto:adoption@bluecrossofindia.org?subject=Adoption%20Inquiry" class="cta-button">Contact for Adoption</a>
+            <a href="{% url 'rescue' %}" class="cta-button">Visit Our Shelter</a>
+            <a href="{% url 'donate' %}" class="cta-button">Support Our Work</a>
+        </div>
+    </section>
+</div>
+
+<script>

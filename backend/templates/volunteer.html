@@ -1,0 +1,656 @@
+{% load static %}
+
+
+
+<style>
+    body {
+        background-color: #eff3f4;
+        margin: 0;
+    }
+
+    /* Hero Section */
+    .volunteer-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: #ffffff;
+        padding: 100px 40px 60px 40px;
+        text-align: center;
+        margin-bottom: 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .volunteer-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,90 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x bottom;
+        background-size: 1200px 120px;
+        opacity: 0.3;
+    }
+
+    .volunteer-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .volunteer-hero p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        font-weight: 300;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Page Container */
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+    }
+
+    /* Opportunities Grid */
+    .opportunities-section {
+        margin: 60px 0;
+    }
+
+    .opportunities-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .opportunities-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .opportunity-card {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        border-radius: 20px;
+        padding: 35px 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        cursor: pointer;
+    }
+
+    .opportunity-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 125, 204, 0.25);
+        border-color: #007DCC;
+    }
+
+    .opportunity-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .opportunity-card h3 {
+        color: #007DCC;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .opportunity-card p {
+        color: #333;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Details Section */
+    .details-section {
+        background: #ffffff;
+        margin: 0 0 60px 0;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .details-section h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .detail-column h3 {
+        color: #007DCC;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #4eb8dd;
+    }
+
+    .detail-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .detail-list li {
+        padding: 12px 0 12px 35px;
+        position: relative;
+        color: #353538;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        border-bottom: 1px solid #E3F2FD;
+    }
+
+    .detail-list li:last-child {
+        border-bottom: none;
+    }
+
+    .detail-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #007DCC;
+        font-weight: 700;
+        font-size: 1.3rem;
+    }
+
+    .detail-list li strong {
+        color: #007DCC;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* Form Section */
+    .form-section {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        margin: 0 0 60px 0;
+        padding: 60px 50px;
+        border-radius: 12px;
+        border: 2px solid #007DCC;
+    }
+
+    .form-section h2 {
+        color: #007DCC;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .form-section .subtitle {
+        text-align: center;
+        color: #353538;
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+
+    .volunteer-form {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 800px;
+        margin: 0 auto;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        color: #3a5e77;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #dddddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .checkbox-group {
+        margin: 20px 0;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        width: auto;
+        cursor: pointer;
+    }
+
+    .checkbox-item label {
+        margin: 0;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .submit-btn {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        padding: 18px 50px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0,125,204,0.3);
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,125,204,0.4);
+    }
+
+    /* Benefits Section */
+    .benefits-section {
+        background: linear-gradient(135deg, #3a5e77 0%, #217093 100%);
+        padding: 70px 50px;
+        border-radius: 12px;
+        color: white;
+        margin-bottom: 60px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .benefits-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .benefit-item {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .benefit-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .benefit-item .icon {
+        font-size: 50px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .benefit-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .benefit-item p {
+        font-size: 0.95rem;
+        opacity: 0.95;
+        line-height: 1.6;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .opportunities-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .benefits-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .volunteer-hero {
+            padding: 60px 30px 40px 30px;
+        }
+
+        .volunteer-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .volunteer-hero p {
+            font-size: 1.1rem;
+        }
+
+        .opportunities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .details-section,
+        .form-section,
+        .benefits-section {
+            padding: 40px 30px;
+        }
+
+        .volunteer-form {
+            padding: 30px 25px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="volunteer-hero">
+    <h1>VOLUNTEER WITH US</h1>
+    <p>Join our mission to create a better world for animals. Your time and skills can make a life-changing difference.</p>
+</div>
+
+<div class="page-container">
+    <!-- Opportunities Section -->
+    <section class="opportunities-section">
+        <h2>Ways to Volunteer</h2>
+        <div class="opportunities-grid">
+            <div class="opportunity-card">
+                <span class="opportunity-icon">🏥</span>
+                <h3>On-Site at Guindy</h3>
+                <p>Work directly with animals at our shelter and hospital. Help with feeding, bathing, walking, and section maintenance.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">🏠</span>
+                <h3>From Your Home</h3>
+                <p>Support us remotely through design work, content creation, social media management, or fundraising campaigns.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">🎯</span>
+                <h3>Micro Volunteering</h3>
+                <p>Contribute your specialized skills in visual design, writing, photography, or technical expertise on specific projects.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">💰</span>
+                <h3>Fundraising</h3>
+                <p>Run online campaigns, host donation boxes, or organize fundraising events to support our operations.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">🏡</span>
+                <h3>Adoption Drives</h3>
+                <p>Help organize and support our Adoptathons and special events to find homes for rescued animals.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">⚡</span>
+                <h3>Tactical Rescues</h3>
+                <p>Join our specialized rescue team for complex extractions requiring technical equipment and training.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">💉</span>
+                <h3>ABC Canvassing</h3>
+                <p>Help promote Animal Birth Control surgeries in communities, gated societies, and corporate campuses.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">📚</span>
+                <h3>Awareness Programs</h3>
+                <p>Run workshops in schools and communities to spread awareness about animal welfare and rights.</p>
+            </div>
+
+            <div class="opportunity-card">
+                <span class="opportunity-icon">🤝</span>
+                <h3>Community Caregiver</h3>
+                <p>Become a BCI-certified community animal caregiver and support street animals in your neighborhood.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section">
+        <h2>On-Site Volunteering Activities</h2>
+        <div class="details-grid">
+            <div class="detail-column">
+                <h3>Animal Care Tasks</h3>
+                <ul class="detail-list">
+                    <li><strong>Abandoned Pets Section</strong>Section disinfection, bathing, dog walking</li>
+                    <li><strong>Geriatric Dogs</strong>Section disinfection, gentle bathing</li>
+                    <li><strong>Mange Dogs</strong>Medicated baths (20-30 min), oil applications, section disinfection</li>
+                    <li><strong>Paraplegic Dogs</strong>Hand feeding, therapy support, section maintenance</li>
+                    <li><strong>Puppy/Kitten Shelter</strong>Hand feeding, deworming, cleaning, de-ticking</li>
+                </ul>
+            </div>
+
+            <div class="detail-column">
+                <h3>Other Sections</h3>
+                <ul class="detail-list">
+                    <li><strong>Cattle Section</strong>Section disinfection, bathing, feeding</li>
+                    <li><strong>Donkey & Horse Stables</strong>Section disinfection, bathing, walking</li>
+                    <li><strong>Aviary</strong>Disinfection, sawdust replacement, hand feeding, cage washing</li>
+                    <li><strong>General Sections</strong>Casualty, treatment areas, ABC sections - daily disinfection</li>
+                </ul>
+
+                <p style="margin-top: 20px; padding: 15px; background: #E3F2FD; border-radius: 8px; font-size: 0.9rem;">
+                    <strong>Note:</strong> Section disinfection involves dry cleaning, high-pressure washing, medicated wash, or blow torching as required.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <h2>Why Volunteer With Us?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <span class="icon">💝</span>
+                <h3>Make Real Impact</h3>
+                <p>Directly improve the lives of rescued and abandoned animals every single day.</p>
+            </div>
+
+            <div class="benefit-item">
+                <span class="icon">🎓</span>
+                <h3>Learn & Grow</h3>
+                <p>Gain hands-on experience in animal care, rescue operations, and welfare work.</p>
+            </div>
+
+            <div class="benefit-item">
+                <span class="icon">👥</span>
+                <h3>Join a Community</h3>
+                <p>Connect with passionate animal lovers and be part of India's oldest animal welfare organization.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <h2>Volunteer Application Form</h2>
+        <p class="subtitle">Fill out the form below to join our volunteer team. We'll get back to you within 3-5 business days.</p>
+        
+        <form class="volunteer-form" id="volunteerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Age *</label>
+                    <input type="number" required placeholder="Age" min="16" max="100">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" required placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" required placeholder="+91 XXXXX XXXXX">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Address *</label>
+                <textarea required placeholder="Enter your complete address" rows="3"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Occupation *</label>
+                    <input type="text" required placeholder="Student / Working Professional / Other">
+                </div>
+                <div class="form-group">
+                    <label>Availability *</label>
+                    <select required>
+                        <option value="">Select availability</option>
+                        <option value="weekdays">Weekdays</option>
+                        <option value="weekends">Weekends Only</option>
+                        <option value="flexible">Flexible</option>
+                        <option value="remote">Remote Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Areas of Interest * (Select all that apply)</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="onsite" value="onsite">
+                        <label for="onsite">On-Site Animal Care at Guindy</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="remote" value="remote">
+                        <label for="remote">Remote/Online Work</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="rescue" value="rescue">
+                        <label for="rescue">Tactical Rescue Team</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="fundraising" value="fundraising">
+                        <label for="fundraising">Fundraising & Events</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="adoption" value="adoption">
+                        <label for="adoption">Adoption Drives</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="abc" value="abc">
+                        <label for="abc">ABC Canvassing</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="awareness" value="awareness">
+                        <label for="awareness">Awareness Programs</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="community" value="community">
+                        <label for="community">Community Caregiver</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Special Skills (Optional)</label>
+                <textarea placeholder="Design, photography, writing, veterinary experience, technical skills, etc." rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Why do you want to volunteer with Blue Cross of India? *</label>
+                <textarea required placeholder="Tell us what motivates you to join our mission..." rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Previous Volunteering Experience (Optional)</label>
+                <textarea placeholder="Any prior experience with animal welfare or other volunteer work..." rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">SUBMIT APPLICATION</button>
+        </form>
+    </section>
+</div>
+
+<script>
+    document.getElementById('volunteerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Check if at least one area of interest is selected
+        const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]');
+        const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        
+        if (!isChecked) {
+            alert('Please select at least one area of interest.');
+            return;
+        }
+        
+        alert('Thank you for your interest in volunteering with Blue Cross of India! We will review your application and contact you within 3-5 business days. For immediate volunteer opportunities, please call us at +91 99629 98886.');
+        this.reset();
+    });
+</script>

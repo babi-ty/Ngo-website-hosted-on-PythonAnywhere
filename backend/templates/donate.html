@@ -1,0 +1,795 @@
+
+<style>
+    body {
+        background-color: #eff3f4;
+        margin: 0   ;
+    }
+
+    /* Hero Section */
+    .donate-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: #ffffff;
+        padding: 80px 40px;
+        text-align: center;
+        margin-bottom: 60px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .donate-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,90 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x bottom;
+        background-size: 1200px 120px;
+        opacity: 0.3;
+    }
+
+    .donate-hero h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .donate-hero p {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        font-weight: 300;
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Container */
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px 60px 20px;
+    }
+
+    /* Impact Stats */
+    .impact-stats {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 50px 40px;
+        margin-bottom: 50px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .impact-stats h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 30px;
+    }
+
+    .stat-box {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .stat-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.25);
+        border-color: #007DCC;
+    }
+
+    .stat-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+        filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .stat-box h3 {
+        color: #007DCC;
+        font-size: 1.5rem;
+        margin: 10px 0;
+        font-weight: 700;
+    }
+
+    .stat-box p {
+        color: #333;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Donation Options */
+    .donation-options {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 50px 40px;
+        margin-bottom: 50px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .donation-options h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .donation-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        background: #f3fafd;
+        color: #3a5e77;
+        border: 2px solid #dddddd;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover {
+        background: #E3F2FD;
+        border-color: #4eb8dd;
+    }
+
+    .tab-btn.active {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        border-color: #007DCC;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* Amount Selection */
+    .amount-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .amount-btn {
+        background: #f3fafd;
+        border: 2px solid #dddddd;
+        padding: 25px 20px;
+        border-radius: 10px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #3a5e77;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+    .amount-btn:hover {
+        background: #E3F2FD;
+        border-color: #4eb8dd;
+        transform: scale(1.05);
+    }
+
+    .amount-btn.selected {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        border-color: #007DCC;
+    }
+
+    .custom-amount {
+        margin-top: 20px;
+    }
+
+    .custom-amount input {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #dddddd;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .custom-amount input:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    /* Sponsor Section */
+    .sponsor-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .sponsor-card {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        border-radius: 12px;
+        padding: 30px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .sponsor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.25);
+        border-color: #007DCC;
+    }
+
+    .sponsor-card.selected {
+        border-color: #007DCC;
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+    }
+
+    .sponsor-card h3 {
+        color: #007DCC;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .sponsor-card.selected h3,
+    .sponsor-card.selected p {
+        color: white;
+    }
+
+    .sponsor-price {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 15px 0;
+        display: block;
+    }
+
+    /* Donor Form */
+    .donor-form {
+        background: #f3fafd;
+        border-radius: 12px;
+        padding: 40px;
+        margin-top: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        color: #3a5e77;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #dddddd;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: auto;
+        cursor: pointer;
+    }
+
+    .checkbox-group label {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    /* Submit Button */
+    .donate-btn {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        padding: 18px 50px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+        box-shadow: 0 4px 15px rgba(0,125,204,0.3);
+    }
+
+    .donate-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,125,204,0.4);
+    }
+
+    /* Payment Methods */
+    .payment-methods {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 50px 40px;
+        margin-bottom: 50px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .payment-methods h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .payment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .payment-card {
+        background: #f3fafd;
+        border: 2px solid #dddddd;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+    }
+
+    .payment-icon {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .payment-card h3 {
+        color: #3a5e77;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .payment-card p {
+        color: #353538;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .payment-details {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 15px;
+        font-family: monospace;
+        font-size: 0.95rem;
+        color: #007DCC;
+        font-weight: 600;
+    }
+
+    /* Tax Benefits */
+    .tax-benefits {
+        background: linear-gradient(135deg, #3a5e77 0%, #217093 100%);
+        border-radius: 12px;
+        padding: 50px 40px;
+        color: white;
+        margin-bottom: 50px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .tax-benefits h2 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .tax-benefits-content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .benefit-item {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .benefit-item h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .benefit-item p {
+        font-size: 1.05rem;
+        opacity: 0.95;
+        line-height: 1.7;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .donate-hero {
+            padding: 60px 30px;
+        }
+
+        .donate-hero h1 {
+            font-size: 2.2rem;
+        }
+
+        .donate-hero p {
+            font-size: 1.1rem;
+        }
+
+        .impact-stats,
+        .donation-options,
+        .payment-methods,
+        .tax-benefits {
+            padding: 35px 25px;
+        }
+
+        .stats-grid,
+        .amount-grid,
+        .sponsor-cards,
+        .payment-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .donation-tabs {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            width: 100%;
+        }
+
+        .donor-form {
+            padding: 25px;
+        }
+    }
+</style>
+
+<!-- Hero Banner -->
+<div class="donate-hero">
+    <h1>Make a Difference Today</h1>
+    <p>Your generosity helps us rescue, heal, and rehome thousands of animals every year</p>
+</div>
+
+<div class="page-container">
+    <!-- Impact Stats -->
+    <section class="impact-stats">
+        <h2>Your Donation Impact</h2>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-icon">₹500</div>
+                <h3>Feeds 10 Animals</h3>
+                <p>Provides nutritious meals for rescued animals for one day</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">₹2,000</div>
+                <h3>Emergency Treatment</h3>
+                <p>Covers immediate medical care for an injured animal</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">₹5,000</div>
+                <h3>ABC Surgery</h3>
+                <p>Funds one Animal Birth Control surgery with vaccination</p>
+            </div>
+            <div class="stat-box">
+                <div class="stat-icon">₹10,000</div>
+                <h3>Complex Surgery</h3>
+                <p>Enables life-saving surgical procedures for critical cases</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Options -->
+    <section class="donation-options">
+        <h2>Choose Your Donation Type</h2>
+        
+        <div class="donation-tabs">
+            <button class="tab-btn active" onclick="switchTab('one-time')">One-Time Donation</button>
+            <button class="tab-btn" onclick="switchTab('monthly')">Monthly Giving</button>
+            <button class="tab-btn" onclick="switchTab('sponsor')">Sponsor a Service</button>
+        </div>
+
+        <!-- One-Time Donation -->
+        <div id="one-time" class="tab-content active">
+            <div class="amount-grid">
+                <button class="amount-btn" onclick="selectAmount(500)">₹500</button>
+                <button class="amount-btn" onclick="selectAmount(1000)">₹1,000</button>
+                <button class="amount-btn" onclick="selectAmount(2500)">₹2,500</button>
+                <button class="amount-btn" onclick="selectAmount(5000)">₹5,000</button>
+                <button class="amount-btn" onclick="selectAmount(10000)">₹10,000</button>
+                <button class="amount-btn" onclick="selectAmount(25000)">₹25,000</button>
+            </div>
+            <div class="custom-amount">
+                <input type="number" id="customAmount" placeholder="Or enter custom amount (₹)" min="100">
+            </div>
+        </div>
+
+        <!-- Monthly Giving -->
+        <div id="monthly" class="tab-content">
+            <div class="amount-grid">
+                <button class="amount-btn" onclick="selectAmount(300)">₹300/month</button>
+                <button class="amount-btn" onclick="selectAmount(500)">₹500/month</button>
+                <button class="amount-btn" onclick="selectAmount(1000)">₹1,000/month</button>
+                <button class="amount-btn" onclick="selectAmount(2000)">₹2,000/month</button>
+                <button class="amount-btn" onclick="selectAmount(5000)">₹5,000/month</button>
+                <button class="amount-btn" onclick="selectAmount(10000)">₹10,000/month</button>
+            </div>
+            <div class="custom-amount">
+                <input type="number" placeholder="Or enter custom monthly amount (₹)" min="100">
+            </div>
+        </div>
+
+        <!-- Sponsor a Service -->
+        <div id="sponsor" class="tab-content">
+            <div class="sponsor-cards">
+                <div class="sponsor-card" onclick="selectSponsor(this, 5000)">
+                    <h3>🏥 Sponsor ABC Surgery</h3>
+                    <span class="sponsor-price">₹5,000</span>
+                    <p>Fund one complete Animal Birth Control surgery including vaccination and post-op care</p>
+                </div>
+                <div class="sponsor-card" onclick="selectSponsor(this, 15000)">
+                    <h3>🚑 Sponsor an Ambulance Day</h3>
+                    <span class="sponsor-price">₹15,000</span>
+                    <p>Cover one day of ambulance operations including fuel, driver, and emergency equipment</p>
+                </div>
+                <div class="sponsor-card" onclick="selectSponsor(this, 50000)">
+                    <h3>🏠 Sponsor a Kennel</h3>
+                    <span class="sponsor-price">₹50,000</span>
+                    <p>Build and maintain one kennel for rescued animals for one year</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donor Information Form -->
+        <div class="donor-form">
+            <h3 style="color: #3a5e77; margin-bottom: 25px; font-size: 1.6rem;">Donor Information</h3>
+            <form id="donationForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" required placeholder="your.email@example.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" required placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>PAN Number (for 80G certificate)</label>
+                        <input type="text" placeholder="ABCDE1234F">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea rows="3" placeholder="Enter your complete address"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Donation Purpose (Optional)</label>
+                    <select>
+                        <option value="">Select purpose</option>
+                        <option value="general">General Fund</option>
+                        <option value="rescue">Rescue Operations</option>
+                        <option value="abc">ABC Program</option>
+                        <option value="medical">Medical Treatment</option>
+                        <option value="shelter">Shelter Maintenance</option>
+                        <option value="education">Education & Awareness</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter">
+                    <label for="newsletter">Subscribe to our newsletter for updates on rescued animals</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="certificate" checked>
+                    <label for="certificate">I would like to receive an 80G tax exemption certificate</label>
+                </div>
+
+                <button type="submit" class="donate-btn">Proceed to Payment</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-methods">
+        <h2>Payment Methods</h2>
+        <div class="payment-grid">
+            <div class="payment-card">
+                <div class="payment-icon">💳</div>
+                <h3>Online Payment</h3>
+                <p>Credit/Debit Cards, UPI, Net Banking, Wallets</p>
+                <p style="margin-top: 15px; color: #007DCC; font-weight: 600;">Secure & Instant</p>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-icon">🏦</div>
+                <h3>Bank Transfer</h3>
+                <p><strong>Account Name:</strong> Blue Cross of India</p>
+                <div class="payment-details">
+                    A/C: 123456789012<br>
+                    IFSC: SBIN0001234<br>
+                    Bank: State Bank of India
+                </div>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-icon">📱</div>
+                <h3>UPI Payment</h3>
+                <p>Scan QR code or use UPI ID</p>
+                <div class="payment-details">
+                    bluecross@sbi<br>
+                    +91 99629 98886
+                </div>
+            </div>
+
+            <div class="payment-card">
+                <div class="payment-icon">✉️</div>
+                <h3>Cheque/DD</h3>
+                <p>Payable to: <strong>Blue Cross of India</strong></p>
+                <p style="font-size: 0.9rem; margin-top: 10px;">Mail to: 1, C.P. Ramaswamy Road, Alwarpet, Chennai - 600018</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tax Benefits -->
+    <section class="tax-benefits">
+        <h2>Tax Benefits & Compliance</h2>
+        <div class="tax-benefits-content">
+            <div class="benefit-item">
+                <h3>✓ 80G Tax Exemption</h3>
+                <p>All donations to Blue Cross of India are eligible for 50% tax deduction under Section 80G of the Income Tax Act. You will receive a certificate for your donation.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ FCRA Registered</h3>
+                <p>We are registered under the Foreign Contribution Regulation Act (FCRA), enabling us to accept international donations.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ Transparent & Accountable</h3>
+                <p>We maintain complete financial transparency. Annual reports and audited statements are available on our website for public review.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>✓ CSR Eligible</h3>
+                <p>Donations from companies are eligible under Corporate Social Responsibility (CSR) requirements as per Companies Act, 2013.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    function switchTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Remove active class from all buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected tab
+        document.getElementById(tabName).classList.add('active');
+        
+        // Add active class to clicked button
+        event.target.classList.add('active');
+        
+        // Clear selections
+        document.querySelectorAll('.amount-btn, .sponsor-card').forEach(el => {
+            el.classList.remove('selected');
+        });
+    }
+
+    function selectAmount(amount) {
+        // Remove selected class from all amount buttons
+        document.querySelectorAll('.amount-btn').forEach(btn => {
+            btn.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked button
+        event.target.classList.add('selected');
+        
+        // Clear custom amount input
+        const customInput = document.getElementById('customAmount');
+        if (customInput) customInput.value = '';
+        
+        console.log('Selected amount:', amount);
+    }
+
+    function selectSponsor(card, amount) {
+        // Remove selected class from all sponsor cards
+        document.querySelectorAll('.sponsor-card').forEach(c => {
+            c.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked card
+        card.classList.add('selected');
+        
+        console.log('Selected sponsorship:', amount);
+    }
+
+    document.getElementById('donationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get selected amount
+        const selectedAmount = document.querySelector('.amount-btn.selected, .sponsor-card.selected');
+        const customAmount = document.getElementById('customAmount')?.value;
+        
+        if (!selectedAmount && !customAmount) {
+            alert('Please select or enter a donation amount');
+            return;
+        }
+        
+        alert('Thank you for your generous donation! You will be redirected to the payment gateway.');
+        
+        // Here you would typically redirect to payment gateway
+        // window.location.href = '/payment-gateway';
+    });
+</script>

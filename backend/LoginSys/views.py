@@ -111,7 +111,7 @@ def LoginView(request):
 
             # Check if the user is a staff member (which includes superusers)
             if user.is_staff:
-                return redirect('/admin/')  # Redirect staff/admins to the admin panel
+                return redirect('/dashboard/')  
             else:
                 return redirect('home')
         

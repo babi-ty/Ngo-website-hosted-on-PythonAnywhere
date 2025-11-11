@@ -1,0 +1,224 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .dashboard-header h1 {
+        margin: 0 0 10px 0;
+        font-size: 2.5rem;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.2);
+    }
+
+    .dashboard-card-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-card-icon svg {
+        width: 32px;
+        height: 32px;
+        fill: #007DCC;
+    }
+
+    .dashboard-card h3 {
+        color: #007DCC;
+        font-size: 1.3rem;
+        margin: 0 0 10px 0;
+    }
+
+    .dashboard-card .count {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #333;
+        display: block;
+        margin: 10px 0;
+    }
+
+    .dashboard-card p {
+        color: #666;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .quick-actions {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .quick-actions h2 {
+        color: #007DCC;
+        margin-bottom: 20px;
+    }
+
+    .action-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .action-link {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        text-align: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    .action-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,125,204,0.3);
+    }
+
+    .messages {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px;
+    }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+    }
+
+    .alert-error {
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Manage your homepage content</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <a href="{% url 'dashboard_manage_slider' %}" class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <rect x="2" y="6" width="20" height="12" rx="2" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>Banners</h3>
+            <span class="count">{{ total_banners }}</span>
+            <p>Manage homepage slider images</p>
+        </a>
+
+        <a href="{% url 'dashboard_manage_statistic' %}" class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 3v18h18M7 14l4-4 4 4 6-6" stroke="currentColor" fill="none" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3>Statistics</h3>
+            <span class="count">{{ total_statistics }}</span>
+            <p>Update homepage statistics</p>
+        </a>
+
+        <a href="{% url 'dashboard_manage_initiative' %}" class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>Initiatives</h3>
+            <span class="count">{{ total_initiatives }}</span>
+            <p>Manage initiative cards</p>
+        </a>
+
+        <a href="{% url 'dashboard_manage_vision' %}" class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>Vision & Mission</h3>
+            <span class="count">{% if vision_mission_exists %}1{% else %}0{% endif %}</span>
+            <p>Edit vision and mission text</p>
+        </a>
+    </div>
+
+    <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="action-links">
+            <a href="{% url 'dashboard_manage_slider_add' %}" class="action-link">+ Add Banner</a>
+            <a href="{% url 'dashboard_manage_statistic_add' %}" class="action-link">+ Add Statistic</a>
+            <a href="{% url 'dashboard_manage_initiative_add' %}" class="action-link">+ Add Initiative</a>
+            <a href="{% url 'home' %}" class="action-link">View Homepage</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

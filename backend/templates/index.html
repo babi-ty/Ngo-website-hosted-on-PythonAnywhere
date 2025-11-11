@@ -1,69 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            text-align: center;
-            padding: 40px;
-            background-color: #f4f7f6;
-            margin: 0;
-            color: #333;
-        }
+{% extends 'base.html' %}
+{% load static %}
 
-        .container {
-            max-width: 600px;
-            margin: 40px auto; /* Added more top margin */
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            padding: 40px; /* Increased padding */
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
+{% block title %}Homepage{% endblock %}
 
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-
-        .logout-button {
-            background-color: #e74c3c; /* A distinct logout color (red) */
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block; /* Allows button to respect padding and margin */
-            transition: background-color 0.3s ease;
-        }
-
-        .logout-button:hover {
-            background-color: #c0392b; /* Darker red on hover */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Welcome to your Dashboard!</h1>
-        
-        <p>You are successfully logged in.</p>
-        
-        <br><br>
-        
-        <form action="{% url 'logout' %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            <button type="submit" class="logout-button">Logout</button>
-        </form>
+{% block content %}
+    <div class="hero-banner">
+        <h2>Be Their Hero</h2>
+        {% for banner in banners %}
+        <div class="slide">
+            <img src="{{ banner.image.url }}" alt="{{ banner.title }}">
+            <h3>{{ banner.title }}</h3>
+            <p>{{ banner.description }}</p>
+        </div>
+        {% empty %}
+        <div class="slide">
+            <img src="https://placehold.co/900x300/34495e/ffffff?text=Our+Mission" alt="Help Animals">
+            <h3>Welcome to Blue Cross of India</h3>
+            <p>Your support helps us rescue, treat, and rehome animals in need.</p>
+        </div>
+        {% endfor %}
     </div>
 
-</body>
-</html>
+    <section class="mission-vision container">
+        {% if vision_mission %}
+        <div>
+            <h3>{{ vision_mission.vision_title }}</h3>
+            <p>{{ vision_mission.vision_description }}</p>
+        </div>
+        <div>
+            <h3>{{ vision_mission.mission_title }}</h3>
+            <p>{{ vision_mission.mission_description }}</p>
+        </div>
+        {% else %}
+        <div>
+            <h3>Our Vision</h3>
+            <p>To create a world where all animals are treated with kindness, respect, and compassion.</p>
+        </div>
+        <div>
+            <h3>Our Mission</h3>
+            <p>To provide a safe haven for stray and abandoned animals, offer medical care, and promote animal welfare through education and advocacy.</p>
+        </div>
+        {% endif %}
+    </section>
+
+    <section class="statistics container">
+        {% for stat in statistics %}
+        <div class="stat-item">
+            <strong>{{ stat.value }}</strong>
+            <span>{{ stat.label }}</span>
+        </div>
+        {% empty %}
+        <div class="stat-item">
+            <strong>500+</strong>
+            <span>Rescues Monthly</span>
+        </div>
+        <div class="stat-item">
+            <strong>100+</strong>
+            <span>Adoptions Monthly</span>
+        </div>
+        <div class="stat-item">
+            <strong>60</strong>
+            <span>Years of Service</span>
+        </div>
+        {% endfor %}
+    </section>
+
+    <section class="initiatives container">
+        {% for init in initiatives %}
+        <div class="initiative-card">
+            <img src="{{ init.image.url }}" alt="{{ init.title }}">
+            <h4>{{ init.title }}</h4>
+            <p>{{ init.description }}</p>
+        </div>
+        {% empty %}
+        <div class="initiative-card">
+            <img src="https://placehold.co/400x200/eee/333?text=Rescue" alt="Rescue">
+            <h4>Rescue</h4><p>24/7 emergency services.</p>
+        </div>
+        <div class="initiative-card">
+            <img src="https://placehold.co/400x200/eee/333?text=Adopt" alt="Adopt">
+            <h4>Adopt</h4><p>Find a new best friend.</p>
+        </div>
+        {% endfor %}
+    </section>
+{% endblock %}

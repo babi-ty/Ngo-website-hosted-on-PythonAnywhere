@@ -1,0 +1,109 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Delete {{ type }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .confirm-container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    .warning-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        fill: #dc3545;
+    }
+
+    .confirm-container h1 {
+        color: #dc3545;
+        margin-bottom: 20px;
+    }
+
+    .confirm-container p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+    }
+
+    .object-details {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    .object-details strong {
+        color: #333;
+        font-size: 1.2rem;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete:hover {
+        background: #c82333;
+    }
+
+    .btn-cancel {
+        background: #6c757d;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="confirm-container">
+        <svg class="warning-icon" viewBox="0 0 24 24">
+            <path d="M12 2L2 20h20L12 2zm0 5l7 12H5l7-12zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+        </svg>
+        
+        <h1>Delete {{ type }}?</h1>
+        <p>Are you sure you want to delete this {{ type|lower }}? This action cannot be undone.</p>
+        
+        <div class="object-details">
+            <strong>{{ object }}</strong>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-group">
+                <button type="submit" class="btn-delete">Yes, Delete</button>
+                <a href="javascript:history.back()" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

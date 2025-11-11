@@ -1,0 +1,963 @@
+
+<style>
+    body {
+        background-color: #eff3f4;
+        margin: 0;
+    }
+
+    /* Hero Section */
+    .abc-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: #ffffff;
+        padding: 100px 40px;
+        text-align: center;
+        margin-bottom: 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .abc-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,90 600,60 T1200,60 L1200,0 L0,0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x bottom;
+        background-size: 1200px 120px;
+        opacity: 0.3;
+    }
+
+    .abc-hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        position: relative;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .abc-hero .tagline {
+        font-size: 1.5rem;
+        opacity: 0.95;
+        font-weight: 300;
+        max-width: 900px;
+        margin: 0 auto 10px auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .abc-hero .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        font-style: italic;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Legacy Banner */
+    .legacy-banner {
+        background: #C44536;
+        color: white;
+        padding: 30px 40px;
+        text-align: center;
+        font-size: 1.15rem;
+        line-height: 1.8;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .legacy-banner strong {
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    /* Page Container */
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+        background: #ffffff;
+        margin: 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .timeline-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .timeline {
+        position: relative;
+        padding: 0 0 0 50px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, #007DCC, #4eb8dd);
+        border-radius: 2px;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 50px;
+        padding-left: 40px;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -36px;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        background: #007DCC;
+        border: 4px solid #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px #E3F2FD;
+        z-index: 1;
+    }
+
+    .timeline-year {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #007DCC;
+        margin-bottom: 10px;
+    }
+
+    .timeline-content {
+        background: #f3fafd;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 4px solid #4eb8dd;
+    }
+
+    .timeline-content h3 {
+        color: #3a5e77;
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .timeline-content p {
+        color: #353538;
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+    /* Stats Section */
+    .stats-section {
+        background: linear-gradient(135deg, #3a5e77 0%, #217093 100%);
+        margin: 0 20px 60px 20px;
+        padding: 70px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .stats-section h2 {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 35px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .stat-card {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 35px 25px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .stat-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+    }
+
+    .stat-card .number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #4eb8dd;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .stat-card .label {
+        font-size: 1.05rem;
+        color: #ffffff;
+        font-weight: 500;
+        opacity: 0.95;
+        line-height: 1.4;
+    }
+
+    /* Process Section */
+    .process-section {
+        background: #ffffff;
+        margin: 0 20px 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .process-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+
+    .step-card {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        border-radius: 15px;
+        padding: 30px 20px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,125,204,0.25);
+        border-color: #007DCC;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        background: #007DCC;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 10px rgba(0,125,204,0.3);
+    }
+
+    .step-card h4 {
+        color: #007DCC;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+
+    .step-card p {
+        color: #333;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    /* Benefits Section */
+    .benefits-section {
+        background: #f3fafd;
+        margin: 0 20px 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        border: 1px solid #dddddd;
+    }
+
+    .benefits-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .benefit-card {
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 12px;
+        border-left: 5px solid #4eb8dd;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 20px rgba(78,184,221,0.2);
+    }
+
+    .benefit-icon {
+        font-size: 45px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .benefit-card h3 {
+        color: #007DCC;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .benefit-card p {
+        color: #353538;
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+    /* Impact Section */
+    .impact-section {
+        background: #ffffff;
+        margin: 0 20px 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .impact-section h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .impact-content {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .impact-box {
+        background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+        padding: 40px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border: 2px solid #007DCC;
+    }
+
+    .impact-box h3 {
+        color: #007DCC;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .impact-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+    .impact-stat {
+        text-align: center;
+        padding: 20px;
+        background: rgba(255,255,255,0.7);
+        border-radius: 8px;
+    }
+
+    .impact-stat .number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #C44536;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .impact-stat .label {
+        font-size: 1rem;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .impact-description {
+        background: #f3fafd;
+        padding: 30px;
+        border-radius: 10px;
+        border-left: 4px solid #4eb8dd;
+    }
+
+    .impact-description p {
+        color: #353538;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .impact-description strong {
+        color: #007DCC;
+    }
+
+    /* Service Areas Section */
+    .service-areas {
+        background: #ffffff;
+        margin: 0 20px 60px 20px;
+        padding: 60px 50px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .service-areas h2 {
+        color: #3a5e77;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .areas-content {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .area-card {
+        background: #f3fafd;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border-left: 5px solid #007DCC;
+    }
+
+    .area-card h3 {
+        color: #007DCC;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .area-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0 0 0;
+    }
+
+    .area-card ul li {
+        padding: 10px 0 10px 30px;
+        position: relative;
+        color: #353538;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .area-card ul li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #007DCC;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        margin: 0 20px 60px 20px;
+        padding: 60px 40px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .cta-section h2 {
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .cta-section p {
+        color: #ffffff;
+        font-size: 1.2rem;
+        margin-bottom: 35px;
+        opacity: 0.95;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .cta-button {
+        background: #ffffff;
+        color: #007DCC;
+        padding: 18px 45px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .cta-button:hover {
+        background: #4eb8dd;
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .cta-button.secondary {
+        background: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+
+    .cta-button.secondary:hover {
+        background: #ffffff;
+        color: #007DCC;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .process-steps {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .benefits-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .impact-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .abc-hero {
+            padding: 60px 30px;
+        }
+
+        .abc-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .abc-hero .tagline {
+            font-size: 1.2rem;
+        }
+
+        .timeline-section,
+        .stats-section,
+        .process-section,
+        .benefits-section,
+        .impact-section,
+        .service-areas,
+        .cta-section {
+            padding: 40px 30px;
+            margin: 0 15px 40px 15px;
+        }
+
+        .timeline {
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            left: 10px;
+        }
+
+        .timeline-item {
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            left: -26px;
+        }
+
+        .process-steps {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cta-button {
+            width: 100%;
+            max-width: 300px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .abc-hero h1 {
+            font-size: 2rem;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2rem !important;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="abc-hero">
+    <h1>ABC-AR PROGRAM</h1>
+    <p class="tagline">Animal Birth Control - Anti Rabies</p>
+    <p class="subtitle">As Easy as A-B-C: The Humane Solution to Street Dog Population Management</p>
+</div>
+
+<!-- Legacy Banner -->
+<div class="legacy-banner">
+    <strong>🏆 A WORLD-CHANGING INNOVATION</strong>
+    Blue Cross of India pioneered the world's first Animal Birth Control program in 1964, revolutionizing humane animal population management globally.
+</div>
+
+<div class="page-container">
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2>The ABC-AR Journey: From Vision to Law</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">1860s</div>
+                <div class="timeline-content">
+                    <h3>The Failed Approach</h3>
+                    <p>Madras Corporation begins killing street dogs to control population. Despite killing increasing numbers annually, both dog population and human rabies cases continue to rise. Over a century of culling proves ineffective.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1964</div>
+                <div class="timeline-content">
+                    <h3>A Revolutionary Idea is Born</h3>
+                    <p>Dr. S. Chinny Krishna proposes surgical sterilization as a humane alternative to killing. Blue Cross of India conceives and implements the world's first ABC-AR (Animal Birth Control - Anti Rabies) program for street dogs.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1990</div>
+                <div class="timeline-content">
+                    <h3>Global Recognition</h3>
+                    <p>World Health Organization (WHO) officially endorses the ABC-AR methodology, recognizing it as an effective and humane approach to dog population management and rabies control.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1995-1996</div>
+                <div class="timeline-content">
+                    <h3>Breakthrough in Chennai</h3>
+                    <p>After 30 years of advocacy, Corporation Commissioner S. Abul Hassan allows BCI to demonstrate ABC-AR in South Chennai. Within 5 months, visible results prompt the corporation to stop dog killing city-wide in September 1996.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1997</div>
+                <div class="timeline-content">
+                    <h3>National Policy</h3>
+                    <p>Animal Welfare Board of India (AWBI) adopts ABC-AR, making it a national policy. Radford University cites it as one of the watershed moments in world environmental history.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2001</div>
+                <div class="timeline-content">
+                    <h3>Legal Requirement</h3>
+                    <p>Government of India notifies 'Animal Birth Control (Dogs) Rules', making ABC-AR a legal requirement throughout India. This marks the complete transformation from killing to humane management.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2007</div>
+                <div class="timeline-content">
+                    <h3>Zero Rabies Deaths</h3>
+                    <p>Chennai records ZERO human deaths due to rabies for the first time since records were kept. Human rabies cases dropped from 120 in 1996 to zero, directly attributed to aggressive ABC-AR implementation.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">Present</div>
+                <div class="timeline-content">
+                    <h3>Global Model</h3>
+                    <p>Blue Cross of India has trained organizations worldwide. Cities across India and globally have adopted ABC-AR, saving millions of animals while effectively controlling rabies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <h2>Our ABC-AR Impact</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏥</div>
+                <span class="number">246,628</span>
+                <span class="label">Total Sterilization Surgeries Since 1964</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <span class="number">600-700</span>
+                <span class="label">Surgeries Performed Monthly</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚑</div>
+                <span class="number">80+</span>
+                <span class="label">Animals in Mass Camp Operations Daily</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💉</div>
+                <span class="number">100%</span>
+                <span class="label">Anti-Rabies Vaccination Coverage</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <h2>How ABC-AR Works</h2>
+        <div class="process-steps">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h4>CATCH</h4>
+                <p>Trained teams humanely catch street dogs using specialized equipment, ensuring minimal stress to the animals.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h4>STERILIZE</h4>
+                <p>Qualified veterinarians perform spay/neuter surgeries in fully-equipped operation theaters under proper anesthesia.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h4>VACCINATE</h4>
+                <p>All animals receive anti-rabies vaccination during the procedure, protecting both animal and human populations.</p>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h4>RETURN</h4>
+                <p>After recovery, animals are released at the exact GPS location where they were picked up, with ear notch identification.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <h2>Why ABC-AR is the Superior Solution</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <span class="benefit-icon">❤️</span>
+                <h3>Humane & Ethical</h3>
+                <p>Eliminates cruel killing practices. Animals are treated with compassion and returned to their territories where they maintain ecological balance.</p>
+            </div>
+
+            <div class="benefit-card">
+                <span class="benefit-icon">📉</span>
+                <h3>Population Control</h3>
+                <p>Permanently reduces birth rates. One sterilized female prevents potentially 2,000 offspring over her lifetime, creating sustainable population decline.</p>
+            </div>
+
+            <div class="benefit-card">
+                <span class="benefit-icon">🛡️</span>
+                <h3>Rabies Prevention</h3>
+                <p>Vaccination breaks the rabies transmission cycle. Chennai achieved zero human rabies deaths after comprehensive ABC-AR implementation.</p>
+            </div>
+
+            <div class="benefit-card">
+                <span class="benefit-icon">🔬</span>
+                <h3>Scientifically Proven</h3>
+                <p>Endorsed by WHO, OIE, and FAO. Data-driven results show effectiveness over 60 years, unlike failed culling methods used for 100+ years.</p>
+            </div>
+
+            <div class="benefit-card">
+                <span class="benefit-icon">🌍</span>
+                <h3>Territory Stability</h3>
+                <p>Sterilized dogs maintain their territories, preventing migration of new, potentially unvaccinated dogs into the area.</p>
+            </div>
+
+            <div class="benefit-card">
+                <span class="benefit-icon">🤝</span>
+                <h3>Community Harmony</h3>
+                <p>Sterilized animals show reduced aggression, less roaming, and quieter behavior, improving human-animal coexistence in urban areas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <h2>The Chennai Success Story</h2>
+        <div class="impact-content">
+            <div class="impact-box">
+                <h3>From Crisis to Zero: The Rabies Revolution</h3>
+                <div class="impact-stats">
+                    <div class="impact-stat">
+                        <span class="number">120</span>
+                        <span class="label">Human Rabies Deaths (1996)</span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="number">0</span>
+                        <span class="label">Human Rabies Deaths (2007)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="impact-description">
+                <p><strong>After decades of failed culling policies,</strong> Chennai's transformation through ABC-AR demonstrates the program's effectiveness beyond doubt.</p>
+                
+                <p><strong>The turning point:</strong> In 1995, BCI was allowed to pilot ABC-AR in South Chennai. Commissioner S. Abul Hassan personally monitored results. Within 5 months, every street dog had a notched ear marking sterilization and vaccination.</p>
+                
+                <p><strong>The result:</strong> The city immediately stopped its century-old dog killing program. Over the next decade, human rabies deaths plummeted from 120 annually to zero, while street dog behavior improved dramatically.</p>
+                
+                <p><strong>Global impact:</strong> This success inspired cities across India and worldwide to abandon cruel and ineffective culling in favor of humane, scientific ABC-AR programs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="service-areas">
+        <h2>Who We Serve</h2>
+        <div class="areas-content">
+            <div class="area-card">
+                <h3>🏛️ Municipal Bodies</h3>
+                <ul>
+                    <li>Greater Chennai Corporation</li>
+                    <li>Local bodies near Chennai, Puducherry, and Neyveli</li>
+                    <li>City corporations implementing ABC-AR mandate</li>
+                    <li>Mass sterilization camps in collaboration with civic authorities</li>
+                </ul>
+            </div>
+
+            <div class="area-card">
+                <h3>🏠 Communities & Organizations</h3>
+                <ul>
+                    <li>Gated communities and apartment complexes</li>
+                    <li>Corporate and academic campuses</li>
+                    <li>Community animal caregivers and feeders</li>
+                    <li>Residential welfare associations</li>
+                </ul>
+            </div>
+
+            <div class="area-card">
+                <h3>👥 Individual Pet Owners</h3>
+                <ul>
+                    <li>Affordable sterilization services for owned pets</li>
+                    <li>Pre-surgical health checks and vaccinations</li>
+                    <li>Post-operative care guidance</li>
+                    <li>Walk-in services at our Guindy facility</li>
+                </ul>
+            </div>
+
+            <div class="area-card">
+                <h3>🚑 Rescued Animals</h3>
+                <ul>
+                    <li>All rescued street animals sterilized before release</li>
+                    <li>Complete medical treatment during recovery</li>
+                    <li>GPS-tracked release at original location</li>
+                    <li>Ear notch marking for identification</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Support the ABC-AR Mission</h2>
+        <p>Every sterilization surgery costs ₹5,000 and prevents thousands of future births. Your support helps us continue this life-saving work that has transformed Chennai and inspired the world.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'donate' %}" class="cta-button">Sponsor a Surgery</a>
+            <a href="mailto:abc@bluecrossofindia.org?subject=ABC%20Program%20Inquiry" class="cta-button secondary">Contact ABC Team</a>
+            <a href="{% url 'rescue' %}" class="cta-button secondary">Report Street Animal</a>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Add animation on scroll for timeline items
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateX(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-20px)';
+        item.style.transition = 'all 0.6s ease';
+        observer.observe(item);
+    });
+</script>
+

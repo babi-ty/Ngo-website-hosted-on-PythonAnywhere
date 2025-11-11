@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Who We Are{% endblock %}
+
+{% block extra_css %}
+<style>
+
+    body {
+        background-color: #eff3f4;
+    }
+
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #353538;
+    }
+
+    /* Hero Section */
+    .hero-banner {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: #ffffff;
+        padding: 80px 40px;
+        text-align: center;
+        margin-bottom: 60px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .hero-banner h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        color: #ffffff;
+        letter-spacing: -0.5px;
+    }
+
+    .hero-banner .subtitle {
+        color: #f3fafd;
+        font-size: 1.3rem;
+        opacity: 0.95;
+        font-weight: 300;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* Section Styling */
+    .content-section {
+        background: #ffffff;
+        margin: 0 20px 40px 20px;
+        padding: 50px 60px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .content-section h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .content-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: #4eb8dd;
+        border-radius: 2px;
+    }
+
+    .content-section h3 {
+        color: #217093;
+        font-size: 1.6rem;
+        margin: 30px 0 20px 0;
+        font-weight: 600;
+    }
+
+    .content-section p {
+        line-height: 1.8;
+        font-size: 1.05rem;
+        margin-bottom: 18px;
+        color: #353538;
+    }
+
+    /* Founder Quote */
+    .founder-quote {
+        background: #f3fafd;
+        border-left: 5px solid #4eb8dd;
+        padding: 30px 40px;
+        margin: 30px 0;
+        border-radius: 8px;
+        font-style: italic;
+        font-size: 1.25rem;
+        color: #3a5e77;
+        box-shadow: 0 2px 10px rgba(78,184,221,0.1);
+    }
+
+    /* Awards List */
+    .awards-list {
+        background: #f3fafd;
+        padding: 25px 35px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .awards-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0 0 0;
+    }
+
+    .awards-list li {
+        padding: 12px 0 12px 30px;
+        margin: 8px 0;
+        position: relative;
+        font-size: 1.05rem;
+        color: #353538;
+        border-bottom: 1px solid #e0e9ed;
+    }
+
+    .awards-list li:last-child {
+        border-bottom: none;
+    }
+
+    .awards-list li::before {
+        content: '🏆';
+        position: absolute;
+        left: 0;
+        font-size: 1.2rem;
+    }
+
+    .awards-list p strong {
+        color: #217093;
+        font-size: 1.15rem;
+    }
+
+    /* Statistics Section */
+    .statistics-section {
+        background: linear-gradient(135deg, #3a5e77 0%, #217093 100%);
+        margin: 0 20px 40px 20px;
+        padding: 60px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .statistics-section h2 {
+        text-align: center;
+        color: #ffffff;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        font-weight: 600;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .stat-card {
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        padding: 30px 20px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255,255,255,0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .stat-card .number {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #4eb8dd;
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .stat-card .label {
+        font-size: 1.05rem;
+        color: #ffffff;
+        font-weight: 500;
+        opacity: 0.95;
+    }
+
+    /* Leadership Section */
+    .leadership-section {
+        background: #ffffff;
+        margin: 0 20px 40px 20px;
+        padding: 50px 60px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        border: 1px solid #dddddd;
+    }
+
+    .leadership-section h2 {
+        color: #3a5e77;
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .chairpersons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .chairperson-card {
+        background: #f3fafd;
+        border-radius: 12px;
+        padding: 25px;
+        text-align: center;
+        border: 2px solid #dddddd;
+        transition: all 0.3s ease;
+    }
+
+    .chairperson-card:hover {
+        border-color: #4eb8dd;
+        box-shadow: 0 4px 20px rgba(78,184,221,0.2);
+        transform: translateY(-3px);
+    }
+
+    .chairperson-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        border: 4px solid #4eb8dd;
+        display: block;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .chairperson-years {
+        font-size: 0.95rem;
+        color: #217093;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .chairperson-name {
+        font-size: 1.25rem;
+        color: #3a5e77;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-banner {
+            padding: 60px 30px;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+        }
+
+        .hero-banner .subtitle {
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            padding: 35px 30px;
+            margin: 0 15px 30px 15px;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+        }
+
+        .statistics-section {
+            padding: 40px 25px;
+            margin: 0 15px 30px 15px;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card .number {
+            font-size: 2.2rem;
+        }
+
+        .leadership-section {
+            padding: 35px 30px;
+            margin: 0 15px 30px 15px;
+        }
+
+        .chairpersons-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-banner h1 {
+            font-size: 1.8rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .content-section {
+            padding: 25px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Banner -->
+<div class="hero-banner">
+    <h1>Who We Are</h1>
+    <p class="subtitle">Speaking for the voiceless for six decades</p>
+</div>
+
+<div class="page-container">
+    <!-- Story Section -->
+    <section class="content-section">
+        <h2>The Story of Blue Cross of India</h2>
+        <p>On a rainy day in 1959 when Captain Sundaram couldn't bear to walk away from the two pups struggling to stay afloat on a flooded road near his home in Madras. He took them home. In short order, his residence in T-Nagar became an animal shelter hosting 60 cats, dogs, goats, bandicoots and even a pair of baby mongooses rescued from a snake charmer.</p>
+        
+        <p>With support from his family (his wife Usha and the children built the first few kennels with their own hands) he was soon rescuing and sheltering animals from all corners of the city. His friends and colleagues, many off-duty pilots from Indian Airlines would help drive animal ambulances to rescue animals in distress.</p>
+        
+        <p>An informal group - Animal Aid Association (AAA) was formed. The Captain, his wife Usha and his three children Suresh, Chinny Krishna and Vijayalakshmi, were soon joined by Daivasigamony, the then Secretary of the Indian Football Association. The activities of the group slowly increased and the name of the group was formalised as Blue Cross of India, Madras and registered in 1964 with nine founding members.</p>
+        
+        <p>A movement was born. A movement that is today a household name in the city of Chennai and widely known all over India and in the animal welfare ecosystem globally.</p>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="content-section">
+        <h2>The Founding Father</h2>
+        <h3>Captain V. Sundaram</h3>
+        
+        <div class="founder-quote">
+            "God had given me so much that I thought I ought to do something in return. There are so many charitable institutions for human beings, but so few for animals."
+        </div>
+
+        <div class="awards-list">
+            <p><strong>Awards & Recognition</strong></p>
+            <ul>
+                <li>1964: Queen Victoria Medal from the RSPCA</li>
+                <li>1987: Watamull Foundation Award from the USA</li>
+                <li>Silver medals from the Madras SPCA and the Mylapore Academy</li>
+                <li>Distinguished Service Award from the Rotary Club of South Madras</li>
+                <li>1997: Posthumously awarded the Prani Mitra Award by the President of India</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="statistics-section">
+        <h2>Our Impact</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="number">336,663</span>
+                <span class="label">Rescues</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">246,628</span>
+                <span class="label">Spay/Neuter Surgeries</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">108,068</span>
+                <span class="label">Adoptions</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">7,106</span>
+                <span class="label">Complex Rescues</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">61</span>
+                <span class="label">Years of Service</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="leadership-section">
+        <h2>Chairpersons Over The Years</h2>
+        
+        <div class="chairpersons-grid">
+            <div class="chairperson-card">
+                <img src="{% static 'image1.png' %}" alt="Captain V. Sundaram" class="chairperson-image">
+                <div class="chairperson-years">1964 - 1968</div>
+                <h3 class="chairperson-name">Capt V. Sundaram</h3>
+            </div>
+
+            <div class="chairperson-card">
+                <img src="{% static 'image2.png' %}" alt="R. Ratnam" class="chairperson-image">
+                <div class="chairperson-years">1968 - 1987</div>
+                <h3 class="chairperson-name">R. Ratnam</h3>
+            </div>
+
+            <div class="chairperson-card">
+                <img src="{% static 'image3.png' %}" alt="C. R. Pattabhi Raman" class="chairperson-image">
+                <div class="chairperson-years">1987 - 2000</div>
+                <h3 class="chairperson-name">C. R. Pattabhi Raman</h3>
+            </div>
+
+            <div class="chairperson-card">
+                <img src="{% static 'image4.png' %}" alt="Dr. S. Chinny Krishna" class="chairperson-image">
+                <div class="chairperson-years">2000 - 2010</div>
+                <h3 class="chairperson-name">Dr. S. Chinny Krishna</h3>
+            </div>
+
+            <div class="chairperson-card">
+                <img src="{% static 'image5.png' %}" alt="M. Shantilal Pandya" class="chairperson-image">
+                <div class="chairperson-years">2010 - 2020</div>
+                <h3 class="chairperson-name">M. Shantilal Pandya</h3>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
