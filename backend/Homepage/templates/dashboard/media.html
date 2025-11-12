@@ -1,0 +1,531 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Media - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .media-hero {
+        background: linear-gradient(135deg, #007DCC 0%, #005A99 100%);
+        color: white;
+        padding: 80px 20px 60px;
+        text-align: center;
+    }
+
+    .media-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .media-hero p {
+        color: white;
+        font-size: 1.2rem;
+        opacity: 0.95;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .media-section {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+        color: #007DCC;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .section-header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    /* Press Releases */
+    .press-releases-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 60px;
+    }
+
+    .press-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .press-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .press-date {
+        color: #007DCC;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+    }
+
+    .press-card h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .press-card p {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .press-card .btn-read {
+        color: #007DCC;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Media Coverage */
+    .coverage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 60px;
+    }
+
+    .coverage-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .coverage-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .coverage-thumbnail {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        background: #f0f0f0;
+    }
+
+    .coverage-content {
+        padding: 20px;
+    }
+
+    .coverage-source {
+        color: #007DCC;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .coverage-card h3 {
+        font-size: 1.1rem;
+        color: #333;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+    .coverage-card a {
+        color: #007DCC;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 60px;
+    }
+
+    .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        aspect-ratio: 4/3;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+        padding: 20px;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+
+    .gallery-overlay h4 {
+        font-size: 1rem;
+        margin-bottom: 5px;
+    }
+
+    .gallery-overlay p {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+
+    /* Videos */
+    .videos-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .video-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .video-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .video-thumbnail {
+        position: relative;
+        padding-bottom: 56.25%;
+        background: #000;
+    }
+
+    .video-thumbnail iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .video-content {
+        padding: 20px;
+    }
+
+    .video-content h3 {
+        color: #333;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .video-content p {
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .video-duration {
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    /* Media Contacts */
+    .contacts-section {
+        background: #f8f9fa;
+        padding: 60px 20px;
+    }
+
+    .contacts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .contact-card {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .contact-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        border: 4px solid #007DCC;
+    }
+
+    .contact-card h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .contact-designation {
+        color: #007DCC;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .contact-info {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .contact-info-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    .contact-info-item i {
+        color: #007DCC;
+        width: 20px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+    }
+
+    .category-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #E3F2FD;
+        color: #007DCC;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="media-hero">
+    <h1>Media & Press</h1>
+    <p>Stay updated with our latest news, press releases, and media coverage</p>
+</section>
+
+<!-- Press Releases Section -->
+<section class="media-section">
+    <div class="section-header">
+        <h2>Press Releases</h2>
+        <p>Official announcements and updates from our organization</p>
+    </div>
+    
+    {% if press_releases %}
+    <div class="press-releases-grid">
+        {% for release in press_releases %}
+        <div class="press-card">
+            <div class="press-date">
+                <i class="fas fa-calendar-alt"></i> {{ release.release_date|date:"F d, Y" }}
+            </div>
+            <h3>{{ release.title }}</h3>
+            <p>{{ release.description|truncatewords:30 }}</p>
+            {% if release.file %}
+            <a href="{{ release.file.url }}" class="btn-read" target="_blank">
+                Download PDF <i class="fas fa-download"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No press releases available at the moment.</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Media Coverage Section -->
+<section class="media-section" style="background: #f8f9fa;">
+    <div class="section-header">
+        <h2>Media Coverage</h2>
+        <p>Featured articles and news coverage about our work</p>
+    </div>
+    
+    {% if media_coverage %}
+    <div class="coverage-grid">
+        {% for coverage in media_coverage %}
+        <div class="coverage-card">
+            {% if coverage.thumbnail %}
+            <img src="{{ coverage.thumbnail.url }}" alt="{{ coverage.title }}" class="coverage-thumbnail">
+            {% else %}
+            <div class="coverage-thumbnail" style="display: flex; align-items: center; justify-content: center; background: #E3F2FD;">
+                <i class="fas fa-newspaper" style="font-size: 3rem; color: #007DCC;"></i>
+            </div>
+            {% endif %}
+            <div class="coverage-content">
+                <div class="coverage-source">{{ coverage.source }}</div>
+                <h3>{{ coverage.title }}</h3>
+                {% if coverage.description %}
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">{{ coverage.description|truncatewords:15 }}</p>
+                {% endif %}
+                <a href="{{ coverage.url }}" target="_blank">
+                    Read Article <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No media coverage available at the moment.</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Image Gallery Section -->
+<section class="media-section">
+    <div class="section-header">
+        <h2>Photo Gallery</h2>
+        <p>Moments captured from our events and activities</p>
+    </div>
+    
+    {% if gallery_images %}
+    <div class="gallery-grid">
+        {% for image in gallery_images %}
+        <div class="gallery-item">
+            <img src="{{ image.image.url }}" alt="{{ image.title }}">
+            <div class="gallery-overlay">
+                <span class="category-badge">{{ image.get_category_display }}</span>
+                <h4>{{ image.title }}</h4>
+                {% if image.description %}
+                <p>{{ image.description|truncatewords:15 }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No gallery images available at the moment.</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Videos Section -->
+<section class="media-section" style="background: #f8f9fa;">
+    <div class="section-header">
+        <h2>Videos</h2>
+        <p>Watch our stories, campaigns, and impact in action</p>
+    </div>
+    
+    {% if videos %}
+    <div class="videos-grid">
+        {% for video in videos %}
+        <div class="video-card">
+            <div class="video-thumbnail">
+                {% if video.embed_code %}
+                    {{ video.embed_code|safe }}
+                {% elif video.get_embed_url %}
+                    <iframe src="{{ video.get_embed_url }}" frameborder="0" allowfullscreen></iframe>
+                {% endif %}
+                {% if video.duration %}
+                <span class="video-duration">{{ video.duration }}</span>
+                {% endif %}
+            </div>
+            <div class="video-content">
+                <h3>{{ video.title }}</h3>
+                {% if video.description %}
+                <p>{{ video.description|truncatewords:25 }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <p>No videos available at the moment.</p>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Media Contacts Section -->
+{% if media_contacts %}
+<section class="contacts-section">
+    <div class="section-header">
+        <h2>Media Contact</h2>
+        <p>Get in touch with our media relations team</p>
+    </div>
+    
+    <div class="contacts-grid">
+        {% for contact in media_contacts %}
+        <div class="contact-card">
+            {% if contact.photo %}
+            <img src="{{ contact.photo.url }}" alt="{{ contact.name }}" class="contact-photo">
+            {% else %}
+            <div class="contact-photo" style="display: flex; align-items: center; justify-content: center; background: #E3F2FD;">
+                <i class="fas fa-user" style="font-size: 3rem; color: #007DCC;"></i>
+            </div>
+            {% endif %}
+            <h3>{{ contact.name }}</h3>
+            <div class="contact-designation">{{ contact.designation }}</div>
+            {% if contact.bio %}
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">{{ contact.bio|truncatewords:30 }}</p>
+            {% endif %}
+            <div class="contact-info">
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:{{ contact.email }}" style="color: #666; text-decoration: none;">{{ contact.email }}</a>
+                </div>
+                {% if contact.phone %}
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ contact.phone }}" style="color: #666; text-decoration: none;">{{ contact.phone }}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

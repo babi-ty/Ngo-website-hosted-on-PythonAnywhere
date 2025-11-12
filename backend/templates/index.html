@@ -1,10 +1,590 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}Blue Cross of India - Be Their Hero{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Modern Homepage Styles - Only for index.html content */
+
+/* Hero Banner with Animated Gradient */
+.hero-banner {
+    position: relative;
+    min-height: 600px;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px 20px;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100px); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.hero-banner h2 {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 30px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    letter-spacing: -2px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-banner .slide {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 900px;
+    margin: 20px auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+    border: none;
+}
+
+.hero-banner .slide:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.hero-banner .slide img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero-banner .slide h3 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.hero-banner .slide p {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.8;
+}
+
+/* Mission & Vision Section */
+.mission-vision {
+    max-width: 1400px;
+    margin: -60px auto 80px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    position: relative;
+    z-index: 3;
+    background-color: transparent;
+}
+
+.mission-vision > div {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    text-align: left;
+    flex-basis: auto;
+    flex-grow: 0;
+}
+
+.mission-vision > div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.mission-vision > div:hover::before {
+    transform: scaleX(1);
+}
+
+.mission-vision > div:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.mission-vision h3 {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+}
+
+.mission-vision h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+.mission-vision p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #475569;
+    margin-top: 24px;
+}
+
+/* Statistics Section */
+.statistics {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 100px 20px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    justify-content: unset;
+    flex-wrap: unset;
+    gap: unset;
+    text-align: unset;
+}
+
+.statistics::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveGrid 20s linear infinite;
+}
+
+@keyframes moveGrid {
+    from { transform: translate(0, 0); }
+    to { transform: translate(50px, 50px); }
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 50px 30px;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+    animation: fadeInScale 0.6s ease-out both;
+    min-width: auto;
+}
+
+.stat-item:nth-child(1) { animation-delay: 0.1s; }
+.stat-item:nth-child(2) { animation-delay: 0.2s; }
+.stat-item:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.stat-item:hover {
+    transform: translateY(-15px) scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.stat-item strong {
+    display: block;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    letter-spacing: -2px;
+}
+
+.stat-item span {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Initiatives Section */
+.initiatives {
+    max-width: 1400px;
+    margin: 100px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.initiative-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: none;
+}
+
+.initiative-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.initiative-card:hover::before {
+    opacity: 1;
+}
+
+.initiative-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.initiative-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.initiative-card:hover img {
+    transform: scale(1.1);
+}
+
+.initiative-card h4 {
+    font-size: 1.6rem;
+    color: #1e293b;
+    padding: 30px 30px 15px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
+}
+
+.initiative-card p {
+    padding: 0 30px 35px;
+    color: #64748b;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Projects Section */
+.projects-section {
+    max-width: 1400px;
+    margin: 100px auto;
+    padding: 0 20px;
+}
+
+.projects-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.projects-header h3 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #1e293b;
+    font-weight: 900;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.projects-header p {
+    font-size: 1.2rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: none;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.project-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover img {
+    transform: scale(1.1);
+}
+
+.project-placeholder {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.project-content {
+    padding: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.project-card h4 {
+    font-size: 1.6rem;
+    color: #1e293b;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+.project-status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.status-ongoing {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.status-upcoming {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.project-card p {
+    color: #64748b;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.project-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top: 2px solid #f1f5f9;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.project-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+.project-meta-item i {
+    width: 20px;
+    color: #667eea;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-banner {
+        min-height: 500px;
+        padding: 40px 15px;
+    }
+
+    .hero-banner .slide {
+        padding: 25px;
+    }
+
+    .hero-banner .slide img {
+        height: 250px;
+    }
+
+    .mission-vision {
+        grid-template-columns: 1fr;
+        margin-top: -40px;
+    }
+
+    .statistics {
+        padding: 60px 15px;
+    }
+
+    .stats-container {
+        gap: 25px;
+    }
+
+    .stat-item {
+        padding: 35px 20px;
+    }
+
+    .initiatives {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin: 60px auto;
+    }
+
+    .initiative-card img {
+        height: 220px;
+    }
+
+    .projects-section {
+        margin: 60px auto;
+    }
+
+    .projects-header {
+        margin-bottom: 40px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .project-card img,
+    .project-placeholder {
+        height: 220px;
+    }
+
+    .project-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .project-status {
+        align-self: flex-start;
+    }
+}
+</style>
+{% endblock %}
 
 {% block content %}
-    <div class="hero-banner">
+<!-- Hero Banner -->
+<div class="hero-banner">
+    <div class="hero-content">
         <h2>Be Their Hero</h2>
         {% for banner in banners %}
         <div class="slide">
@@ -14,36 +594,40 @@
         </div>
         {% empty %}
         <div class="slide">
-            <img src="https://placehold.co/900x300/34495e/ffffff?text=Our+Mission" alt="Help Animals">
-            <h3>Welcome to Blue Cross of India</h3>
-            <p>Your support helps us rescue, treat, and rehome animals in need.</p>
+            <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=900&h=400&fit=crop" alt="Help Animals">
+            <h3>Find your Best Friend!</h3>
+            <p>Thousands of rescued dogs, cats, puppies, and kittens are waiting for a loving home. Start your adoption journey today.</p>
         </div>
         {% endfor %}
     </div>
+</div>
 
-    <section class="mission-vision container">
-        {% if vision_mission %}
-        <div>
-            <h3>{{ vision_mission.vision_title }}</h3>
-            <p>{{ vision_mission.vision_description }}</p>
-        </div>
-        <div>
-            <h3>{{ vision_mission.mission_title }}</h3>
-            <p>{{ vision_mission.mission_description }}</p>
-        </div>
-        {% else %}
-        <div>
-            <h3>Our Vision</h3>
-            <p>To create a world where all animals are treated with kindness, respect, and compassion.</p>
-        </div>
-        <div>
-            <h3>Our Mission</h3>
-            <p>To provide a safe haven for stray and abandoned animals, offer medical care, and promote animal welfare through education and advocacy.</p>
-        </div>
-        {% endif %}
-    </section>
+<!-- Mission & Vision -->
+<section class="mission-vision">
+    {% if vision_mission %}
+    <div>
+        <h3>{{ vision_mission.vision_title }}</h3>
+        <p>{{ vision_mission.vision_description }}</p>
+    </div>
+    <div>
+        <h3>{{ vision_mission.mission_title }}</h3>
+        <p>{{ vision_mission.mission_description }}</p>
+    </div>
+    {% else %}
+    <div>
+        <h3>Our Vision</h3>
+        <p>A world where every animal is safe, respected, and loved, and stray populations are humanely managed through compassion and action.</p>
+    </div>
+    <div>
+        <h3>Our Mission</h3>
+        <p>To rescue and rehabilitate homeless, injured, and abused animals; provide them with quality medical care; find them loving forever homes; and advocate for animal welfare through education and community outreach.</p>
+    </div>
+    {% endif %}
+</section>
 
-    <section class="statistics container">
+<!-- Statistics -->
+<section class="statistics">
+    <div class="stats-container">
         {% for stat in statistics %}
         <div class="stat-item">
             <strong>{{ stat.value }}</strong>
@@ -51,36 +635,100 @@
         </div>
         {% empty %}
         <div class="stat-item">
-            <strong>500+</strong>
-            <span>Rescues Monthly</span>
+            <strong>1800+</strong>
+            <span>Adoptions Monthly</span>
         </div>
         <div class="stat-item">
-            <strong>100+</strong>
-            <span>Adoptions Monthly</span>
+            <strong>500+</strong>
+            <span>Rescues Monthly</span>
         </div>
         <div class="stat-item">
             <strong>60</strong>
             <span>Years of Service</span>
         </div>
         {% endfor %}
-    </section>
+    </div>
+</section>
 
-    <section class="initiatives container">
-        {% for init in initiatives %}
-        <div class="initiative-card">
-            <img src="{{ init.image.url }}" alt="{{ init.title }}">
-            <h4>{{ init.title }}</h4>
-            <p>{{ init.description }}</p>
-        </div>
-        {% empty %}
-        <div class="initiative-card">
-            <img src="https://placehold.co/400x200/eee/333?text=Rescue" alt="Rescue">
-            <h4>Rescue</h4><p>24/7 emergency services.</p>
-        </div>
-        <div class="initiative-card">
-            <img src="https://placehold.co/400x200/eee/333?text=Adopt" alt="Adopt">
-            <h4>Adopt</h4><p>Find a new best friend.</p>
+<!-- Initiatives -->
+<section class="initiatives">
+    {% for init in initiatives %}
+    <div class="initiative-card">
+        <img src="{{ init.image.url }}" alt="{{ init.title }}">
+        <h4>{{ init.title }}</h4>
+        <p>{{ init.description }}</p>
+    </div>
+    {% empty %}
+    <div class="initiative-card">
+        <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?w=400&h=280&fit=crop" alt="Rescue">
+        <h4>24/7 Animal Ambulance</h4>
+        <p>Our fleet of ambulances is on the road day and night, responding to calls for injured and sick stray animals across the city.</p>
+    </div>
+    <div class="initiative-card">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&h=280&fit=crop" alt="Volunteer">
+        <h4>Be Their Hero</h4>
+        <p>We run on the power of volunteers. Give your time, skills, and love to help save lives, walk and love our shelter animals.</p>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Projects Section -->
+
+<section class="projects-section">
+    <div class="projects-header">
+        <h3>Our Projects</h3>
+        <p>Making a lasting impact through dedicated initiatives</p>
+    </div>
+    
+    <div class="projects-grid">
+        {% for project in projects %}
+        <div class="project-card">
+            {% if project.images.exists %}
+                {% with project.images.first as primary_image %}
+                <img src="{{ primary_image.image.url }}" alt="{{ project.title }}">
+                {% endwith %}
+            {% else %}
+                <div class="project-placeholder">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+            {% endif %}
+            
+            <div class="project-content">
+                <div class="project-header">
+                    <h4>{{ project.title }}</h4>
+                    <span class="project-status status-{{ project.status }}">
+                        {{ project.get_status_display }}
+                    </span>
+                </div>
+                
+                <p>{{ project.description|truncatewords:25 }}</p>
+                
+                <div class="project-meta">
+                    {% if project.location %}
+                    <div class="project-meta-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ project.location }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.start_date %}
+                    <div class="project-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>
+                            {% if project.status == 'upcoming' %}
+                                Starting {{ project.start_date|date:"F Y" }}
+                            {% elif project.status == 'completed' and project.end_date %}
+                                {{ project.start_date|date:"M Y" }} - {{ project.end_date|date:"M Y" }}
+                            {% else %}
+                                Since {{ project.start_date|date:"F Y" }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
         {% endfor %}
-    </section>
+    </div>
+</section>
 {% endblock %}

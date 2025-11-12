@@ -1,0 +1,366 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}{{ action }} Project{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-container h1 {
+        color: #007DCC;
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        color: #007DCC;
+        font-size: 1.3rem;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #E3F2FD;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #007DCC;
+        box-shadow: 0 0 0 3px rgba(0,125,204,0.1);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .form-check label {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .form-row-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .form-hint {
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .current-images {
+        margin-top: 15px;
+    }
+
+    .current-images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .image-item {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .image-item img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .primary-badge {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: #007DCC;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .image-form {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+
+    .image-form-row {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 15px;
+        align-items: start;
+    }
+
+    .image-form-controls {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        padding-top: 25px;
+    }
+
+    .btn-submit {
+        background: #007DCC;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background: #005A99;
+    }
+
+    .btn-cancel {
+        background: #6c757d;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 15px;
+        display: inline-block;
+    }
+
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0 0;
+        font-size: 0.9rem;
+    }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-error, .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-warning {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+    }
+
+    .required-mark {
+        color: #dc3545;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <a href="{% url 'dashboard_manage_project' %}" class="btn-back">← Back to Projects</a>
+    
+    <div class="form-container">
+        <h1>{{ action }} Project</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Title <span class="required-mark">*</span></label>
+                    {{ form.title }}
+                    {{ form.title.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.status.id_for_label }}">Status <span class="required-mark">*</span></label>
+                    {{ form.status }}
+                    {{ form.status.errors }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description <span class="required-mark">*</span></label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-row-3">
+                <div class="form-group">
+                    <label for="{{ form.start_date.id_for_label }}">Start Date</label>
+                    {{ form.start_date }}
+                    {{ form.start_date.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.end_date.id_for_label }}">End Date</label>
+                    {{ form.end_date }}
+                    {{ form.end_date.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.location.id_for_label }}">Location</label>
+                    {{ form.location }}
+                    {{ form.location.errors }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.order.id_for_label }}">Display Order</label>
+                    {{ form.order }}
+                    <small class="form-hint">Lower numbers appear first</small>
+                    {{ form.order.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <div class="form-check">
+                        {{ form.is_active }}
+                        <label for="{{ form.is_active.id_for_label }}">Active (Display on website)</label>
+                    </div>
+                    {{ form.is_active.errors }}
+                </div>
+            </div>
+
+            <h3 class="section-title">Project Images</h3>
+
+            {% if action == 'Edit' and project.images.exists %}
+            <div class="current-images">
+                <label style="font-weight: 600; color: #333;">Current Images:</label>
+                <div class="current-images-grid">
+                    {% for image in project.images.all %}
+                    <div class="image-item">
+                        <img src="{{ image.image.url }}" alt="Project image">
+                        {% if image.is_primary %}
+                            <span class="primary-badge">Primary</span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {{ formset.management_form }}
+            
+            <div id="image-formset">
+                {% for form in formset %}
+                <div class="image-form">
+                    <div class="image-form-row">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>Image</label>
+                            {{ form.image }}
+                            {{ form.image.errors }}
+                        </div>
+                        <div class="image-form-controls">
+                            <div class="form-check">
+                                {{ form.is_primary }}
+                                <label for="{{ form.is_primary.id_for_label }}" style="font-size: 0.9rem;">Primary</label>
+                            </div>
+                            {% if action == 'Edit' %}
+                            <div class="form-check">
+                                {{ form.DELETE }}
+                                <label for="{{ form.DELETE.id_for_label }}" style="font-size: 0.9rem; color: #dc3545;">Delete</label>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {{ form.id }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div style="margin-top: 30px;">
+                <button type="submit" class="btn-submit">{{ action }} Project</button>
+                <a href="{% url 'dashboard_manage_project' %}" class="btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

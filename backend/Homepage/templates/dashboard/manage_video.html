@@ -1,0 +1,228 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Manage Videos{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .page-header h1 {
+        color: #007DCC;
+        margin: 0;
+    }
+
+    .btn-primary {
+        background: #007DCC;
+        color: white;
+        padding: 12px 25px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-primary:hover {
+        background: #005A99;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #E3F2FD;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        color: #007DCC;
+        border-bottom: 2px solid #BBDEFB;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+        background: #f8f9fa;
+    }
+
+    .thumbnail {
+        width: 80px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .video-url {
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .video-url a {
+        color: #007DCC;
+        text-decoration: none;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-edit {
+        background: #ffc107;
+        color: #000;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+    }
+
+    .empty-state svg {
+        width: 80px;
+        height: 80px;
+        fill: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-error, .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <a href="{% url 'dashboard_home' %}" class="btn-back">← Back to Dashboard</a>
+    
+    <div class="page-header">
+        <h1>Manage Videos</h1>
+        <a href="{% url 'dashboard_manage_video_add' %}" class="btn-primary">+ Add New Video</a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="table-container">
+        {% if videos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Title</th>
+                    <th>Video URL</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for video in videos %}
+                <tr>
+                    <td>
+                        {% if video.thumbnail %}
+                        <img src="{{ video.thumbnail.url }}" alt="Thumbnail" class="thumbnail">
+                        {% else %}
+                        <div style="width: 80px; height: 60px; background: #ddd; border-radius: 5px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#999">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                        {% endif %}
+                    </td>
+                    <td><strong>{{ video.title }}</strong></td>
+                    <td>
+                        <div class="video-url">
+                            <a href="{{ video.video_url }}" target="_blank">{{ video.video_url }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'dashboard_manage_video_edit' video.pk %}" class="btn-edit">Edit</a>
+                            <a href="{% url 'dashboard_manage_video_delete' video.pk %}" class="btn-delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <svg viewBox="0 0 24 24">
+                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" fill="currentColor"/>
+            </svg>
+            <h3>No Videos Yet</h3>
+            <p>Click the "Add New Video" button to add your first video.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
